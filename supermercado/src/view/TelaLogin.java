@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;

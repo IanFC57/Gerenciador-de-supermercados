@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -14,20 +14,20 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JRadioButton;
 
-public class TelaCadastro extends JPanel {
+public class TelaCadastroProdutos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField TFUsuario;
-	private JTextField TFCPF;
+	private JTextField TFProdutos;
+	private JTextField TFQtd;
 
 	/**
 	 * Create the panel.
 	 */
-	public TelaCadastro() {
+	public TelaCadastroProdutos() {
 		setBackground(SystemColor.inactiveCaptionBorder);
 		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 2][][][][][grow 2][]"));
 		
-		JLabel lblNewLabel_1 = new JLabel("Cadastre-se");
+		JLabel lblNewLabel_1 = new JLabel("Cadastrar Produtos");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		add(lblNewLabel_1, "cell 2 0,alignx center");
 		
@@ -35,13 +35,13 @@ public class TelaCadastro extends JPanel {
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblNome, "cell 1 2,alignx left");
 		
-		TFUsuario = new JTextField();
-		add(TFUsuario, "cell 2 2,growx");
-		TFUsuario.setColumns(10);
+		TFProdutos = new JTextField();
+		add(TFProdutos, "cell 2 2,growx");
+		TFProdutos.setColumns(10);
 		
-		JLabel lblCPF = new JLabel("CPF:");
-		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblCPF, "cell 1 3,alignx trailing");
+		JLabel Qtd = new JLabel("Qtd:");
+		Qtd.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(Qtd, "cell 1 3,alignx trailing");
 		
 		JButton BTCadastrar = new JButton("Cadastrar");
 		BTCadastrar.addActionListener(new ActionListener() {
@@ -49,9 +49,9 @@ public class TelaCadastro extends JPanel {
 			}
 		});
 		
-		TFCPF = new JTextField();
-		add(TFCPF, "cell 2 3,growx");
-		TFCPF.setColumns(10);
+		TFQtd = new JTextField();
+		add(TFQtd, "cell 2 3,growx");
+		TFQtd.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Será um administrador?");
 		add(lblNewLabel, "flowx,cell 2 5,alignx left,aligny center");
