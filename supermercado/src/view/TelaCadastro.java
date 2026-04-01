@@ -3,6 +3,8 @@ package view;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
@@ -19,6 +21,7 @@ public class TelaCadastro extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField TFUsuario;
 	private JTextField TFCPF;
+	private JButton BTCadastrar;
 
 	/**
 	 * Create the panel.
@@ -49,6 +52,8 @@ public class TelaCadastro extends JPanel {
 			}
 		});
 		
+		
+		
 		TFCPF = new JTextField();
 		add(TFCPF, "cell 2 3,growx");
 		TFCPF.setColumns(10);
@@ -69,6 +74,34 @@ public class TelaCadastro extends JPanel {
 		b.add(RBNao);
 		
 
+	}
+	public void cadastrar(ActionListener actionListener) {
+		this.BTCadastrar.addActionListener(actionListener);
+	}
+	
+	public String getNome() {
+		return this.TFUsuario.getText();
+	}
+	
+	public String getCPF() {
+		return this.TFCPF.getText();
+	}
+	
+	public void limparCampos(){
+		this.TFUsuario.setText(" ");
+		this.TFCPF.setText(" ");
+		
+	}
+	
+	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {
+		JOptionPane.showMessageDialog(
+				null,
+				mensagem,
+				titulo,
+				tipoMensagem
+				);
+		// TODO Auto-generated method stub
+		
 	}
 
 }

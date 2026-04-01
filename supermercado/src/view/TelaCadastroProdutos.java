@@ -19,6 +19,7 @@ public class TelaCadastroProdutos extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField TFProdutos;
 	private JTextField TFQtd;
+	private JTextField TFPreco;
 
 	/**
 	 * Create the panel.
@@ -31,7 +32,7 @@ public class TelaCadastroProdutos extends JPanel {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		add(lblNewLabel_1, "cell 2 0,alignx center");
 		
-		JLabel lblNome = new JLabel("Nome:");
+		JLabel lblNome = new JLabel("Nome do Produto:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblNome, "cell 1 2,alignx left");
 		
@@ -53,20 +54,15 @@ public class TelaCadastroProdutos extends JPanel {
 		add(TFQtd, "cell 2 3,growx");
 		TFQtd.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Será um administrador?");
-		add(lblNewLabel, "flowx,cell 2 5,alignx left,aligny center");
+		JLabel lblPreco = new JLabel("Preço");
+		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblPreco, "cell 1 4,alignx trailing");
+		
+		TFPreco = new JTextField();
+		TFPreco.setColumns(10);
+		add(TFPreco, "cell 2 4,growx");
 		add(BTCadastrar, "flowx,cell 2 6,alignx center");
-		
-		
-		
-		JRadioButton RBSim = new JRadioButton("Sim");
-		add(RBSim, "cell 2 5,aligny center");
-		
-		JRadioButton RBNao = new JRadioButton("Não");
-		add(RBNao, "cell 2 5,aligny center");
 		ButtonGroup b = null;
-		b.add(RBSim);
-		b.add(RBNao);
 		
 
 	}

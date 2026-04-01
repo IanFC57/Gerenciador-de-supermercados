@@ -8,6 +8,11 @@ import java.sql.SQLException;
 
 
 public class ClienteDAO {
+	
+	 private static final String URL = "jdbc:mysql://localhost:3306/supermercado";
+	 private static final String USUARIO = "root";
+	 private static final String SENHA = "admin";
+	    
 	public void adicionarCliente(Cliente cliente) {
 		String sql = "INSERT INTO usuarios (nome, CPF) VALUES (?, ?)";
 		Connection conexao = null;
