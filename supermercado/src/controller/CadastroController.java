@@ -24,8 +24,8 @@ public class CadastroController {
 			if((!nome.equals("") &&
 					!CPF.equals(""))) {
 
-//				CLiente c = new Cliente(nome, CPF);
-//				this.model.adicionar(c);
+			 Cliente c = new Cliente(nome, CPF);
+			 this.model.adicionarCliente(c);
 
 				this.view.limparCampos();
 				this.view.exibirMensagem("Cadastro", "Cadastro Feito com sucesso!", 0);
