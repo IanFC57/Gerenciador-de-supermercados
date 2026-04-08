@@ -20,6 +20,7 @@ public class TelaCadastroProdutos extends JPanel {
 	private JTextField TFProdutos;
 	private JTextField TFQtd;
 	private JTextField TFPreco;
+	private JButton BTCadastrar;
 
 	/**
 	 * Create the panel.
@@ -44,7 +45,7 @@ public class TelaCadastroProdutos extends JPanel {
 		Qtd.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(Qtd, "cell 1 3,alignx trailing");
 		
-		JButton BTCadastrar = new JButton("Cadastrar");
+		BTCadastrar = new JButton("Cadastrar");
 		BTCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -65,6 +66,20 @@ public class TelaCadastroProdutos extends JPanel {
 		ButtonGroup b = null;
 		
 
+	}
+	
+	public void cadastroproduto(ActionListener actionListener) {
+		this.BTCadastrar.addActionListener(actionListener);
+	}
+	public String getNome() {
+		return this.TFProdutos.getText();
+	}
+	public String getQtd() {
+		return this.TFQtd.getText();
+	}
+	
+	public String getPreco() {
+		return this.TFPreco.getText();
 	}
 
 }

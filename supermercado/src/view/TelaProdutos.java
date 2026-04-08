@@ -15,12 +15,15 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextField;
 
 public class TelaProdutos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tabelaProdutos;
 	private JTable tabelaCarrinho;
+	private JTextField TFTotal;
+	private JButton btnAdicionar, btnExcluir;
 
 	/**
 	 * Create the panel.
@@ -81,19 +84,26 @@ public class TelaProdutos extends JPanel {
 		});
 		scrollPane_1.setViewportView(tabelaCarrinho);
 		
-		JButton btnNewButton = new JButton("Adicionar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		add(btnNewButton, "flowx,cell 0 4");
+		add(btnAdicionar, "flowx,cell 0 4");
 		
-		JButton btnNewButton_1 = new JButton("Excluir");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		add(btnNewButton_1, "cell 0 4");
+		add(btnExcluir, "cell 0 4");
+		
+		JLabel lblNewLabel_2 = new JLabel("Total:");
+		add(lblNewLabel_2, "flowx,cell 1 4");
+		
+		TFTotal = new JTextField();
+		add(TFTotal, "cell 1 4");
+		TFTotal.setColumns(10);
 		
 		
 		

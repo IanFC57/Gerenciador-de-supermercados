@@ -22,6 +22,8 @@ public class TelaCadastro extends JPanel {
 	private JTextField TFUsuario;
 	private JTextField TFCPF;
 	private JButton BTCadastrar;
+	private ButtonGroup b;
+	private JRadioButton RBSim, RBNao;
 
 	/**
 	 * Create the panel.
@@ -64,12 +66,13 @@ public class TelaCadastro extends JPanel {
 		
 		
 		
-		JRadioButton RBSim = new JRadioButton("Sim");
+		RBSim = new JRadioButton("Sim");
 		add(RBSim, "cell 2 5,aligny center");
+//		RBSim.isSelected()
 		
-		JRadioButton RBNao = new JRadioButton("Não");
+		RBNao = new JRadioButton("Não");
 		add(RBNao, "cell 2 5,aligny center");
-		ButtonGroup b = null;
+		b = null;
 		b.add(RBSim);
 		b.add(RBNao);
 		
@@ -103,5 +106,7 @@ public class TelaCadastro extends JPanel {
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void getAdmin() {
+		this.RBSim.isSelected();
+	}
 }

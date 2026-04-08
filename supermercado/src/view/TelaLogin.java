@@ -11,19 +11,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class TelaLogin extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField TFUsuario;
-	private JPasswordField PFUsuario;
+	private JButton BTEntrar;
+	private JLabel LNao;
+	private JTextField TFCpf;
 
 	/**
 	 * Create the panel.
 	 */
 	public TelaLogin() {
 		setBackground(SystemColor.inactiveCaptionBorder);
-		setLayout(new MigLayout("", "[grow 10][][grow 50][grow 10]", "[grow 5][][][][][grow 5][]"));
+		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 5][][][][][grow 5][]"));
 		
 		JLabel lblNewLabel = new JLabel("Seja Bem Vindo");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -39,22 +44,37 @@ public class TelaLogin extends JPanel {
 		
 		JLabel lblCPF = new JLabel("CPF:");
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblCPF, "cell 1 3,alignx left");
+		add(lblCPF, "cell 1 3,alignx trailing");
 		
-		PFUsuario = new JPasswordField();
-		add(PFUsuario, "cell 2 3,growx");
+		TFCpf = new JTextField();
+		add(TFCpf, "cell 2 3,growx");
+		TFCpf.setColumns(10);
 		
-		JButton BTEntrar = new JButton("Entrar");
-		BTEntrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		BTEntrar = new JButton("Entrar");
 		add(BTEntrar, "flowx,cell 2 5,alignx center");
 		
-		JLabel lblNewLabel_1 = new JLabel("Não possui uma conta?");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		add(lblNewLabel_1, "cell 2 6,alignx center");
+		LNao = new JLabel("Não possui uma conta?");
+		LNao.setFont(new Font("Tahoma", Font.BOLD, 12));
+		add(LNao, "cell 2 6,alignx center");
 
+	}
+	public String getUsuario() {
+		return this.TFUsuario.getText();
+	}
+	
+	public String getCpf() {
+		return this.TFCpf.getText();
+	}
+	
+	public void Cadastro(MouseListener mouselistener) {
+		this.LNao.addMouseListener(mouselistener);
+	}
+	public void autenticar(ActionListener actionlistener) {
+		this.BTEntrar.addActionListener(actionlistener);
+	}
+	public void exibirMensagem(String string, String string2, int i) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

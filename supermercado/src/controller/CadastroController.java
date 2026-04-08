@@ -1,13 +1,15 @@
 package controller;
 
+import java.awt.event.ComponentAdapter;
+
 import model.Cliente;
 import model.ClienteDAO;
 import view.TelaCadastro;
 
 /**
- * Classe responsável pela comunicação entre a view (TelaCadastro) e o model (candidatoDAO).
+ * Classe responsável pela comunicação entre a view (TelaCadastro) e o model (candidatoDAO). SUPERMERCADO
  */
-public class CadastroController {
+public class CadastroController extends ComponentAdapter{
 	private final TelaCadastro view;
 	private final ClienteDAO model;
 	private final Navegador navegador;
@@ -20,6 +22,8 @@ public class CadastroController {
 		this.view.cadastrar(e -> {
 			String nome = view.getNome();
 			String CPF = view.getCPF();
+			//String Admin = view.getAdmin();
+			
 
 			if((!nome.equals("") &&
 					!CPF.equals(""))) {

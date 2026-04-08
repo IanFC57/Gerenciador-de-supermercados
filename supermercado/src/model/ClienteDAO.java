@@ -14,7 +14,7 @@ public class ClienteDAO {
 	 private static final String SENHA = "admin";
 	    
 	public void adicionarCliente(Cliente cliente) {
-		String sql = "INSERT INTO usuarios (nome, CPF) VALUES (?, ?)";
+		String sql = "INSERT INTO usuario (nome, CPF) VALUES (?, ?)";
 		Connection conexao = null;
         PreparedStatement pstm = null;
 	try {
@@ -36,6 +36,29 @@ public class ClienteDAO {
         }
     }
 }
+	
+	public Cliente buscarPorCPF(String cpf) {
+		String sql = "SELECT * FROM usuario WHERE CPF = ?";
+		try (Connection conexao = BancoDeDados.conectar();
+	             PreparedStatement pstm = conexao.prepareStatement(sql)) {
+	            
+	            pstm.setString(1, cpf);
+	            
+	            try (ResultSet rs = pstm.executeQuery()) {
+	                if (rs.next()) {
+	                    // Se encontrou o registro, cria o objeto Cliente com os dados do banco
+	                    String nome = rs.getString("nome");
+	                    String cpfBanco = rs.getString("CPF");
+	                    
+	                    return new Cliente(nome, cpfBanco);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        return null; // Retorna null se não encontrar ninguém com esse CPF
+	    }
+	}
 
-}
 
