@@ -30,6 +30,5 @@ public class Produto {
 		return qtd;
 	}
 
-	// Construtor COM ID (usado ao buscar do banco)
-
+	
 }

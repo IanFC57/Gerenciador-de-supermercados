@@ -21,9 +21,10 @@ public class TelaCadastro extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField TFUsuario;
 	private JTextField TFCPF;
-	private JButton BTCadastrar;
+	private JButton BTCadastrar, btnSair;
 	private ButtonGroup b;
 	private JRadioButton RBSim, RBNao;
+	
 
 	/**
 	 * Create the panel.
@@ -72,10 +73,17 @@ public class TelaCadastro extends JPanel {
 		b.add(RBSim);
 		b.add(RBNao);
 		
+		btnSair = new JButton("Sair");
+		add(btnSair, "cell 2 6");
+		
 
 	}
 	public void cadastrar(ActionListener actionListener) {
 		this.BTCadastrar.addActionListener(actionListener);
+	}
+	
+	public void acaoSair(ActionListener actionListener) {
+		this.btnSair.addActionListener(actionListener);
 	}
 	
 	public String getNome() {

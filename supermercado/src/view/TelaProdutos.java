@@ -2,23 +2,18 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class TelaProdutos extends JPanel {
 
@@ -26,20 +21,12 @@ public class TelaProdutos extends JPanel {
 	private JTable tabelaProdutos;
 	private JTable tabelaCarrinho;
 	private JTextField TFTotal;
-	private JButton btnAdicionar, btnExcluir,btnEmitirNota;
-	private JButton btnDeslogar;
+	private JButton btnAdicionar, btnExcluir, btnEmitirNota, btnDeslogar;
 	private DefaultTableModel modeloProdutos, modeloCarrinho;
+	private JSpinner spinnerQtd; 
 
-	/**
-	 * Create the panel.
-	 */
 	public TelaProdutos() {
 		setLayout(new MigLayout("", "[][grow][]", "[][][grow 10][][][grow][grow 10]"));
-		
-		 String[] columnNames = {"Produto", "preço unitário", "Disponibilidade"};
-         Object[][] data = {
-         {"0044831576", "Mouse", "ELEC-101-BK"},
-         };
 		
 		JLabel lblNewLabel = new JLabel("Produtos");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -52,61 +39,51 @@ public class TelaProdutos extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 2,grow");
 		
-		tabelaProdutos = new JTable();
-		tabelaProdutos.setEnabled(false);
-		tabelaProdutos.setColumnSelectionAllowed(true);
-		tabelaProdutos.setCellSelectionEnabled(true);
-		scrollPane.setViewportView(tabelaProdutos);
+		modeloProdutos = new DefaultTableModel(
+			new Object[][] {},
+			new String[] {"ID", "Produto", "Preço", "Estoque"}
+		) {
+			public boolean isCellEditable(int row, int column) { return false; }
+		};
 		
-		tabelaProdutos.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"", "", ""},
-			},
-			new String[] {
-				"Produto", "pre\u00E7o unit\u00E1rio", "Disponibilidade"
-			}
-		));
+		tabelaProdutos = new JTable(modeloProdutos);
+		tabelaProdutos.setColumnSelectionAllowed(false);
+		tabelaProdutos.setCellSelectionEnabled(false);
+		tabelaProdutos.setRowSelectionAllowed(true); 
+		scrollPane.setViewportView(tabelaProdutos);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		add(scrollPane_1, "cell 1 2,grow");
 		
-		tabelaCarrinho = new JTable();
-		tabelaCarrinho.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Ma\u00E7a", null, null},
-				{null, null, ""},
-			},
-			new String[] {
-				"Produto", "Quantidade", "Valor"
-			}
+		modeloCarrinho = new DefaultTableModel(
+			new Object[][] {},
+			new String[] {"ID", "Produto", "Qtd", "Subtotal"}
 		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Object.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+			public boolean isCellEditable(int row, int column) { return false; }
+		};
+		
+		tabelaCarrinho = new JTable(modeloCarrinho);
 		scrollPane_1.setViewportView(tabelaCarrinho);
 		
+		
+		JLabel lblQtd = new JLabel("Qtd:");
+		add(lblQtd, "flowx,cell 0 4");
+		
+		
+		spinnerQtd = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		add(spinnerQtd, "cell 0 4");
+		
 		btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		add(btnAdicionar, "flowx,cell 0 4");
+		add(btnAdicionar, "cell 0 4");
 		
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		add(btnExcluir, "cell 0 4");
 		
-		JLabel lblNewLabel_2 = new JLabel("Total:");
+		JLabel lblNewLabel_2 = new JLabel("Total: R$");
 		add(lblNewLabel_2, "flowx,cell 1 4,alignx right");
 		
 		TFTotal = new JTextField();
+		TFTotal.setEditable(false); 
 		add(TFTotal, "cell 1 4,alignx right");
 		TFTotal.setColumns(10);
 		
@@ -115,99 +92,34 @@ public class TelaProdutos extends JPanel {
 		
 		btnDeslogar = new JButton("Sair");
 		add(btnDeslogar, "cell 0 4");
-		
-		
-		
-		
-		
-//		
-//		table = new JTable();
-//		add(table, "cell 1 1,grow");
-//		
-//		table.setModel(new DefaultTableModel(
-//				new Object[][] {
-//					{"0044831576", "Mouse", "ELEC-101-BK"},
-//				},
-//				new String[] {
-//					"ID", "Produto", "SKU"
-//				}
-//			) {
-//				Class[] columnTypes = new Class[] {
-//					String.class, Object.class, Object.class, Object.class, Object.class
-//				};
-//				public Class getColumnClass(int columnIndex) {
-//					return columnTypes[columnIndex];
-//				}
-//			});
-		
-
 	}
 
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+	
+
+	public void adicionarOuvinte(ComponentListener listener) { this.addComponentListener(listener); }
+	public void acaoAdicionar(ActionListener listener) { this.btnAdicionar.addActionListener(listener); }
+	public void acaoRemover(ActionListener listener) { this.btnExcluir.addActionListener(listener); }
+	public void acaoEmitirNota(ActionListener listener) { this.btnEmitirNota.addActionListener(listener); }
+	public void acaoDeslogar(ActionListener listener) { this.btnDeslogar.addActionListener(listener); }
+
+	
+	public int getQuantidadeSelecionada() {
+		return (Integer) this.spinnerQtd.getValue();
 	}
 
-	public void acaoAdicionar(Object object) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void adicionarOuvinte(ComponentListener listener) { 
-		this.addComponentListener(listener); 
-	}
-	
-	public void acaoAdicionar(ActionListener listener) { 
-		this.btnAdicionar.addActionListener(listener); 
-	}
-	
-	public void acaoRemover(ActionListener listener) { 
-		this.btnExcluir.addActionListener(listener); 
-	}
-	
-	public void acaoEmitirNota(ActionListener listener) { 
-		this.btnEmitirNota.addActionListener(listener); 
-	}
-	
-	public void acaoDeslogar(ActionListener listener) { 
-		this.btnDeslogar.addActionListener(listener); 
-	}
-
-	public DefaultTableModel getModeloProdutos() { 
-		return modeloProdutos; 
-	}
-	
-	public DefaultTableModel getModeloCarrinho() { 
-		return modeloCarrinho; 
-	}
-	
-	public JTable getTabelaProdutos() { 
-		return tabelaProdutos; 
-	}
-	
-	public JTable getTabelaCarrinho() { 
-		return tabelaCarrinho; 
-	}
+	public DefaultTableModel getModeloProdutos() { return modeloProdutos; }
+	public DefaultTableModel getModeloCarrinho() { return modeloCarrinho; }
+	public JTable getTabelaProdutos() { return tabelaProdutos; }
+	public JTable getTabelaCarrinho() { return tabelaCarrinho; }
 
 	public void setTotal(double total) {
-		// Substitui a vírgula por ponto para não dar erro na formatação do R$
 		this.TFTotal.setText(String.format("%.2f", total).replace(",", "."));
 	}
 
 	public void limparTabela(DefaultTableModel modelo) {
-		modelo.setRowCount(0);
+		if (modelo != null) {
+			modelo.setRowCount(0);
+		}
 	}
 
 	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {

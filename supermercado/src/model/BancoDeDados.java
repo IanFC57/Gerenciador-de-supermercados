@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class BancoDeDados {
     private static final String URL = "jdbc:mysql://localhost:3306/db_supermercado";
     private static final String USUARIO = "root";
-    private static final String SENHA = "admin"; // Coloque a senha do seu banco
+    private static final String SENHA = "admin"; 
 
     public static Connection conectar() {
         try {

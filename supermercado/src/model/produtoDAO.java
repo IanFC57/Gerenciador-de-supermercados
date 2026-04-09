@@ -29,7 +29,7 @@ public class produtoDAO {
 			}
 		}
 
-		// Método para buscar todos os produtos e listar na tela de compras
+		
 		public List<Produto> listarTodos() {
 			List<Produto> produtos = new ArrayList<>();
 			String sql = "SELECT * FROM produto";
@@ -53,7 +53,7 @@ public class produtoDAO {
 			return produtos;
 		}
 
-		// Método para reduzir o estoque após a compra
+		
 		public void baixarEstoque(int idProduto, int quantidadeComprada) {
 			String sql = "UPDATE produto SET qtd = qtd - ? WHERE id_produto = ?";
 			try (Connection conexao = BancoDeDados.conectar();
@@ -64,6 +64,19 @@ public class produtoDAO {
 				pstm.executeUpdate();
 				
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void excluirProduto(int idProduto) {
+			String sql = "DELETE FROM produto WHERE id_produto = ?";
+			try (java.sql.Connection conexao = BancoDeDados.conectar();
+	             java.sql.PreparedStatement pstm = conexao.prepareStatement(sql)) {
+				
+				pstm.setInt(1, idProduto);
+				pstm.executeUpdate();
+				
+			} catch (java.sql.SQLException e) {
 				e.printStackTrace();
 			}
 		}

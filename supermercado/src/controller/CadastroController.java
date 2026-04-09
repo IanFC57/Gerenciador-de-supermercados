@@ -14,7 +14,7 @@ public class CadastroController extends ComponentAdapter{
 	private final ClienteDAO model;
 	private final Navegador navegador;
 	
-	// ... imports omitidos
+	
 	public CadastroController(TelaCadastro view, ClienteDAO model, Navegador navegador) {
 	    this.view = view;
 	    this.model = model;
@@ -23,7 +23,7 @@ public class CadastroController extends ComponentAdapter{
 	    this.view.cadastrar(e -> {
 	        String nome = view.getNome();
 	        String CPF = view.getCPF();
-	        boolean isAdmin = view.getAdmin(); // Pegando do radio button!
+	        boolean isAdmin = view.getAdmin(); 
 	        
 	        if (!nome.isBlank() && !CPF.isBlank()) {
 	            Cliente c = new Cliente(nome, CPF, isAdmin);
@@ -31,11 +31,17 @@ public class CadastroController extends ComponentAdapter{
 	            
 	            this.view.limparCampos();
 	            this.view.exibirMensagem("Cadastro", "Cadastro feito com sucesso!", 1);
-	            this.navegador.navegarPara("LOGIN"); // Manda pro login depois de cadastrar
+	            this.navegador.navegarPara("LOGIN"); 
 	        } else {
 	            this.view.exibirMensagem("Erro", "Preencha todos os campos!", 0);
 	        }
 	    });
+	    
+	
+	 		this.view.acaoSair(e -> {
+	 			this.view.limparCampos(); 
+	 			this.navegador.navegarPara("LOGIN"); 
+	 		});
 	}
 	
 }
