@@ -13,29 +13,38 @@ public class LoginController extends ComponentAdapter{
 	private final Navegador navegador;
 	
 	public LoginController(TelaLogin view, ClienteDAO model, Navegador navegador) {
-		this.view = view;
-		this.model = model;
-		this.navegador = navegador;
-		
-		this.view.autenticar(e ->{
-			String CPF = view.getCpf();
-            if (!CPF.equals("")) {
-                // Pergunta ao model se o cliente existe
-                Cliente cliente = this.model.buscarPorCPF(CPF);
+	    this.view = view;
+	    this.model = model;
+	    this.navegador = navegador;
+	    
+	    // Ação do link "Não possui conta?"
+	    this.view.Cadastro(new java.awt.event.MouseAdapter() {
+	        public void mouseClicked(java.awt.event.MouseEvent evt) {
+	            navegador.navegarPara("CADASTRO");
+	        }
+	    });
 
-                if (cliente != null) {
-                    this.view.exibirMensagem("Login", "Bem-vindo, " + cliente.getNome() + "!", 1);
-                    
-                    // Aqui você usa o navegador para ir para a tela principal
-                    // this.navegador.irParaHome(); 
-                } else {
-                    this.view.exibirMensagem("Erro", "Usuário não encontrado ou CPF inválido.", 0);
-                }
-            } else {
-                this.view.exibirMensagem("Aviso", "Por favor, preencha o campo CPF.", 0);
-            }
-		});
-		
+	    this.view.autenticar(e -> {
+	        String CPF = view.getCpf();
+	        if (!CPF.isBlank()) {
+	            Cliente cliente = this.model.buscarPorCPF(CPF);
+
+	            if (cliente != null) {
+	                this.view.exibirMensagem("Login", "Bem-vindo, " + cliente.getNome() + "!", 1);
+	                
+	                // SEPARAÇÃO DE TELAS AQUI!
+	                if (cliente.isAdmin()) {
+	                    this.navegador.navegarPara("CADASTRO_PRODUTOS");
+	                } else {
+	                    this.navegador.navegarPara("COMPRA");
+	                }
+	            } else {
+	                this.view.exibirMensagem("Erro", "Usuário não encontrado.", 0);
+	            }
+	        } else {
+	            this.view.exibirMensagem("Aviso", "Preencha o CPF.", 2);
+	        }
+	    });
 	}
 	
 	

@@ -28,58 +28,69 @@ public class TelaCadastroProdutos extends JPanel {
 	public TelaCadastroProdutos() {
 		setBackground(SystemColor.inactiveCaptionBorder);
 		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 2][][][][][grow 2][]"));
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Cadastrar Produtos");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		add(lblNewLabel_1, "cell 2 0,alignx center");
-		
+
 		JLabel lblNome = new JLabel("Nome do Produto:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblNome, "cell 1 2,alignx left");
-		
+
 		TFProdutos = new JTextField();
 		add(TFProdutos, "cell 2 2,growx");
 		TFProdutos.setColumns(10);
-		
+
 		JLabel Qtd = new JLabel("Qtd:");
 		Qtd.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(Qtd, "cell 1 3,alignx trailing");
-		
+
 		BTCadastrar = new JButton("Cadastrar");
 		BTCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		
+
 		TFQtd = new JTextField();
 		add(TFQtd, "cell 2 3,growx");
 		TFQtd.setColumns(10);
-		
+
 		JLabel lblPreco = new JLabel("Preço");
 		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblPreco, "cell 1 4,alignx trailing");
-		
+
 		TFPreco = new JTextField();
 		TFPreco.setColumns(10);
 		add(TFPreco, "cell 2 4,growx");
 		add(BTCadastrar, "flowx,cell 2 6,alignx center");
 		ButtonGroup b = null;
-		
 
 	}
-	
+
 	public void cadastroproduto(ActionListener actionListener) {
 		this.BTCadastrar.addActionListener(actionListener);
 	}
+
 	public String getNome() {
 		return this.TFProdutos.getText();
 	}
+
 	public String getQtd() {
 		return this.TFQtd.getText();
 	}
-	
+
 	public String getPreco() {
 		return this.TFPreco.getText();
+	}
+
+	public void limparCampos() {
+		this.TFProdutos.setText("");
+		this.TFQtd.setText("");
+		this.TFPreco.setText("");
+	}
+
+	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {
+		javax.swing.JOptionPane.showMessageDialog(null, mensagem, titulo, tipoMensagem);
 	}
 
 }

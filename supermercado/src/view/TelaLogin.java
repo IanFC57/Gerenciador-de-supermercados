@@ -3,6 +3,8 @@ package view;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -73,7 +75,7 @@ public class TelaLogin extends JPanel {
 		this.BTEntrar.addActionListener(actionlistener);
 	}
 	public void exibirMensagem(String string, String string2, int i) {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(null, "Certo!");
 		
 	}
 

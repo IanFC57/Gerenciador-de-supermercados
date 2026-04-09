@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class produtoDAO {
 	
@@ -11,30 +13,60 @@ public class produtoDAO {
 	 private static final String USUARIO = "root";
 	 private static final String SENHA = "admin";
 	
-	public void adicionarProduto(Produto produto) {
-		String sql = "INSERT INTO produto (nome_produto, qtd, preco) VALUES (?, ?, ?)";
-		Connection conexao = null;
-        PreparedStatement pstm = null;
-	try {
-        conexao = BancoDeDados.conectar();
-        pstm = conexao.prepareStatement(sql);
-        pstm.setString(1, produto.getNomeProduto());
-        pstm.setString(2, produto.getQtd());
-        pstm.setString(2, produto.getPrecoUnitario());
-        pstm.executeUpdate();
-    }catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-    	BancoDeDados.desconectar(conexao);
-        if (pstm != null) {
-            try {
-                pstm.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
+	 public void adicionarProduto(Produto produto) {
+			String sql = "INSERT INTO produto (nome_produto, qtd, preco) VALUES (?, ?, ?)";
+			
+			try (Connection conexao = BancoDeDados.conectar();
+	             PreparedStatement pstm = conexao.prepareStatement(sql)) {
+				
+				pstm.setString(1, produto.getNomeProduto());
+				pstm.setInt(2, produto.getQtd());
+				pstm.setDouble(3, produto.getPrecoUnitario());
+				pstm.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// Método para buscar todos os produtos e listar na tela de compras
+		public List<Produto> listarTodos() {
+			List<Produto> produtos = new ArrayList<>();
+			String sql = "SELECT * FROM produto";
+			
+			try (Connection conexao = BancoDeDados.conectar();
+	             PreparedStatement pstm = conexao.prepareStatement(sql);
+	             ResultSet rs = pstm.executeQuery()) {
+				
+				while (rs.next()) {
+					Produto p = new Produto(
+						rs.getInt("id_produto"),
+						rs.getString("nome_produto"),
+						rs.getDouble("preco"),
+						rs.getInt("qtd")
+					);
+					produtos.add(p);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return produtos;
+		}
+
+		// Método para reduzir o estoque após a compra
+		public void baixarEstoque(int idProduto, int quantidadeComprada) {
+			String sql = "UPDATE produto SET qtd = qtd - ? WHERE id_produto = ?";
+			try (Connection conexao = BancoDeDados.conectar();
+	             PreparedStatement pstm = conexao.prepareStatement(sql)) {
+				
+				pstm.setInt(1, quantidadeComprada);
+				pstm.setInt(2, idProduto);
+				pstm.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	
 }

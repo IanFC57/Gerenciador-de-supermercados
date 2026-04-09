@@ -7,9 +7,12 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
@@ -23,7 +26,9 @@ public class TelaProdutos extends JPanel {
 	private JTable tabelaProdutos;
 	private JTable tabelaCarrinho;
 	private JTextField TFTotal;
-	private JButton btnAdicionar, btnExcluir;
+	private JButton btnAdicionar, btnExcluir,btnEmitirNota;
+	private JButton btnDeslogar;
+	private DefaultTableModel modeloProdutos, modeloCarrinho;
 
 	/**
 	 * Create the panel.
@@ -84,7 +89,7 @@ public class TelaProdutos extends JPanel {
 		});
 		scrollPane_1.setViewportView(tabelaCarrinho);
 		
-		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -99,11 +104,17 @@ public class TelaProdutos extends JPanel {
 		add(btnExcluir, "cell 0 4");
 		
 		JLabel lblNewLabel_2 = new JLabel("Total:");
-		add(lblNewLabel_2, "flowx,cell 1 4");
+		add(lblNewLabel_2, "flowx,cell 1 4,alignx right");
 		
 		TFTotal = new JTextField();
-		add(TFTotal, "cell 1 4");
+		add(TFTotal, "cell 1 4,alignx right");
 		TFTotal.setColumns(10);
+		
+		btnEmitirNota = new JButton("Emitir nota fiscal");
+		add(btnEmitirNota, "cell 0 4");
+		
+		btnDeslogar = new JButton("Sair");
+		add(btnDeslogar, "cell 0 4");
 		
 		
 		
@@ -148,5 +159,58 @@ public class TelaProdutos extends JPanel {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+
+	public void acaoAdicionar(Object object) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void adicionarOuvinte(ComponentListener listener) { 
+		this.addComponentListener(listener); 
+	}
+	
+	public void acaoAdicionar(ActionListener listener) { 
+		this.btnAdicionar.addActionListener(listener); 
+	}
+	
+	public void acaoRemover(ActionListener listener) { 
+		this.btnExcluir.addActionListener(listener); 
+	}
+	
+	public void acaoEmitirNota(ActionListener listener) { 
+		this.btnEmitirNota.addActionListener(listener); 
+	}
+	
+	public void acaoDeslogar(ActionListener listener) { 
+		this.btnDeslogar.addActionListener(listener); 
+	}
+
+	public DefaultTableModel getModeloProdutos() { 
+		return modeloProdutos; 
+	}
+	
+	public DefaultTableModel getModeloCarrinho() { 
+		return modeloCarrinho; 
+	}
+	
+	public JTable getTabelaProdutos() { 
+		return tabelaProdutos; 
+	}
+	
+	public JTable getTabelaCarrinho() { 
+		return tabelaCarrinho; 
+	}
+
+	public void setTotal(double total) {
+		// Substitui a vírgula por ponto para não dar erro na formatação do R$
+		this.TFTotal.setText(String.format("%.2f", total).replace(",", "."));
+	}
+
+	public void limparTabela(DefaultTableModel modelo) {
+		modelo.setRowCount(0);
+	}
+
+	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {
+		JOptionPane.showMessageDialog(null, mensagem, titulo, tipoMensagem);
 	}
 }

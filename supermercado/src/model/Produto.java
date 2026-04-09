@@ -1,25 +1,35 @@
 package model;
 
 public class Produto {
+	private int id;
 	private String nomeProduto;
-	private String PrecoUnitario;
-	private String qtd;
-	public Produto(String nomeProduto, String precoUnitario, String qtd) {
+	private double precoUnitario;
+	private int qtd;
+
+	public Produto(int id, String nomeProduto, double precoUnitario, int qtd) {
 		super();
+		this.id = id;
 		this.nomeProduto = nomeProduto;
-		PrecoUnitario = precoUnitario;
+		this.precoUnitario = precoUnitario;
 		this.qtd = qtd;
 	}
+
+	public int getId() {
+		return id;
+	}
+
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
-	public String getPrecoUnitario() {
-		return PrecoUnitario;
+
+	public double getPrecoUnitario() {
+		return precoUnitario;
 	}
-	public String getQtd() {
+
+	public int getQtd() {
 		return qtd;
 	}
-	
-	
+
+	// Construtor COM ID (usado ao buscar do banco)
 
 }

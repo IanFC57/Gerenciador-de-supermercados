@@ -48,11 +48,7 @@ public class TelaCadastro extends JPanel {
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCPF, "cell 1 3,alignx trailing");
 		
-		JButton BTCadastrar = new JButton("Cadastrar");
-		BTCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		this.BTCadastrar = new JButton("Cadastrar");
 		
 		
 		
@@ -72,7 +68,7 @@ public class TelaCadastro extends JPanel {
 		
 		RBNao = new JRadioButton("Não");
 		add(RBNao, "cell 2 5,aligny center");
-		b = null;
+		b = new ButtonGroup();
 		b.add(RBSim);
 		b.add(RBNao);
 		
@@ -106,7 +102,7 @@ public class TelaCadastro extends JPanel {
 		// TODO Auto-generated method stub
 		
 	}
-	public void getAdmin() {
-		this.RBSim.isSelected();
+	public boolean getAdmin() {
+		return this.RBSim.isSelected();
 	}
 }
