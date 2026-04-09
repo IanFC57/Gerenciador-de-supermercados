@@ -27,7 +27,7 @@ public class ProdutoController extends ComponentAdapter {
 					// Troca vírgula por ponto para evitar erro se o admin digitar "5,99"
 					double preco = Double.parseDouble(precoStr.replace(",", ".")); 
 
-					Produto p = new Produto(nome, preco, qtd);
+					Produto p = new Produto(0, nome, preco, qtd);
 					this.model.adicionarProduto(p);
 
 					this.view.limparCampos();
