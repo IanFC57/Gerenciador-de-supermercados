@@ -13,7 +13,7 @@ public class CompraController extends ComponentAdapter {
 	private final TelaProdutos view;
 	private final produtoDAO model;
 	private final Navegador navegador;
-	private Cliente clienteLogado; 
+	private Cliente clienteLogado;
 	private double valorTotal = 0.0;
 
 	public CompraController(TelaProdutos view, produtoDAO model, Navegador navegador) {
@@ -45,7 +45,7 @@ public class CompraController extends ComponentAdapter {
 		List<Produto> produtos = model.listarTodos();
 
 		for (Produto p : produtos) {
-			modelo.addRow(new Object[]{p.getId(), p.getNomeProduto(), p.getPrecoUnitario(), p.getQtd()});
+			modelo.addRow(new Object[] { p.getId(), p.getNomeProduto(), p.getPrecoUnitario(), p.getQtd() });
 		}
 	}
 
@@ -57,9 +57,8 @@ public class CompraController extends ComponentAdapter {
 		}
 
 		int estoque = (int) view.getModeloProdutos().getValueAt(linha, 3);
-		int qtdDesejada = view.getQuantidadeSelecionada(); 
+		int qtdDesejada = view.getQuantidadeSelecionada();
 
-		
 		if (qtdDesejada > estoque) {
 			view.exibirMensagem("Aviso", "Estoque insuficiente! Temos apenas " + estoque + " unidades.", 2);
 			return;
@@ -69,16 +68,12 @@ public class CompraController extends ComponentAdapter {
 		String nome = (String) view.getModeloProdutos().getValueAt(linha, 1);
 		double preco = (double) view.getModeloProdutos().getValueAt(linha, 2);
 
-		
 		double subtotal = preco * qtdDesejada;
 
-		
-		view.getModeloCarrinho().addRow(new Object[]{id, nome, qtdDesejada, subtotal});
-		
-		
+		view.getModeloCarrinho().addRow(new Object[] { id, nome, qtdDesejada, subtotal });
+
 		view.getModeloProdutos().setValueAt(estoque - qtdDesejada, linha, 3);
 
-		
 		valorTotal += subtotal;
 		view.setTotal(valorTotal);
 	}
@@ -91,12 +86,11 @@ public class CompraController extends ComponentAdapter {
 		}
 
 		int id = (int) view.getModeloCarrinho().getValueAt(linha, 0);
-		int qtdRemovida = (int) view.getModeloCarrinho().getValueAt(linha, 2); 
+		int qtdRemovida = (int) view.getModeloCarrinho().getValueAt(linha, 2);
 		double subtotal = (double) view.getModeloCarrinho().getValueAt(linha, 3);
 
 		view.getModeloCarrinho().removeRow(linha);
 
-		
 		for (int i = 0; i < view.getModeloProdutos().getRowCount(); i++) {
 			if ((int) view.getModeloProdutos().getValueAt(i, 0) == id) {
 				int estoqueAtual = (int) view.getModeloProdutos().getValueAt(i, 3);
@@ -117,7 +111,7 @@ public class CompraController extends ComponentAdapter {
 		}
 
 		StringBuilder nota = new StringBuilder();
-		nota.append("================ NOTA FISCAL ================\n");
+		nota.append("NOTA FISCAL\n");
 		nota.append("Cliente: ").append(clienteLogado.getNome()).append("\n");
 		nota.append("CPF: ").append(clienteLogado.getCPF()).append("\n\n");
 		nota.append("Itens Comprados:\n");
@@ -125,23 +119,22 @@ public class CompraController extends ComponentAdapter {
 		for (int i = 0; i < carrinho.getRowCount(); i++) {
 			int idProduto = (int) carrinho.getValueAt(i, 0);
 			String nome = (String) carrinho.getValueAt(i, 1);
-			int qtdComprada = (int) carrinho.getValueAt(i, 2); 
+			int qtdComprada = (int) carrinho.getValueAt(i, 2);
 			double valor = (double) carrinho.getValueAt(i, 3);
 
-			
 			model.baixarEstoque(idProduto, qtdComprada);
 
-			
-			nota.append("- ").append(qtdComprada).append("x ").append(nome).append(" | R$ ").append(String.format("%.2f", valor)).append("\n");
+			nota.append("- ").append(qtdComprada).append("x ").append(nome).append(" | R$ ")
+					.append(String.format("%.2f", valor)).append("\n");
 		}
 
 		nota.append("\n=============================================\n");
-		nota.append("TOTAL PAGO: R$ ").append(String.format("%.2f", valorTotal));
+		nota.append("Total Pago: R$ ").append(String.format("%.2f", valorTotal));
 
 		view.exibirMensagem("Compra Finalizada!", nota.toString(), 1);
 
 		limparTudo();
-		carregarProdutosDaBase(); 
+		carregarProdutosDaBase();
 	}
 
 	private void limparTudo() {

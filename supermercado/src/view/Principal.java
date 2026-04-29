@@ -21,14 +21,15 @@ public class Principal extends JFrame {
 		this.cardLayout = new CardLayout();
 
 		this.contentPane = new JPanel(this.cardLayout);
-		this.contentPane.setPreferredSize(new Dimension(600, 675)); 
+		this.contentPane.setPreferredSize(new Dimension(600, 675));
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);
 	}
 
 	/**
-	 * Método responsável por adicionar os painéis que representam
-	 * cada tela da aplicação ao painel principal.
+	 * Método responsável por adicionar os painéis que representam cada tela da
+	 * aplicação ao painel principal.
+	 * 
 	 * @param nome Nome do painel.
 	 * @param tela Painel que será adicionado.
 	 */
@@ -38,6 +39,7 @@ public class Principal extends JFrame {
 
 	/**
 	 * Método responsável por mostrar uma tela (painel) específica.
+	 * 
 	 * @param nome Nome do painel.
 	 */
 	public void mostrarTela(String nome) {

@@ -19,13 +19,13 @@ import view.TelaProdutos;
 
 public class Main {
 	public static void main(String[] args) {
-		
+
 		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.PLAIN, 18)));
 
 		Principal principal = new Principal();
 		Navegador navegador = new Navegador(principal);
-		
-		
+
+		// DAOs
 		ClienteDAO clienteDAO = new ClienteDAO();
 		produtoDAO produtoDao = new produtoDAO();
 
@@ -38,26 +38,19 @@ public class Main {
 		// Controllers
 		CompraController compraController = new CompraController(telaCompra, produtoDao, navegador);
 		telaCompra.adicionarOuvinte(compraController);
-
 		ProdutoController produtoController = new ProdutoController(telaCadastroProdutos, produtoDao, navegador);
 		telaCadastroProdutos.adicionarOuvinte(produtoController);
-
 		CadastroController cadastroController = new CadastroController(telaCadastro, clienteDAO, navegador);
-		
-		
 		LoginController loginController = new LoginController(telaLogin, clienteDAO, navegador, compraController);
 
-		
 		navegador.adicionarPainel("LOGIN", telaLogin);
 		navegador.adicionarPainel("CADASTRO", telaCadastro);
 		navegador.adicionarPainel("CADASTRO_PRODUTOS", telaCadastroProdutos);
 		navegador.adicionarPainel("COMPRA", telaCompra);
 
-	
 		principal.setLocationRelativeTo(null);
 		principal.setVisible(true);
 
-		
 		navegador.navegarPara("LOGIN");
 	}
 }

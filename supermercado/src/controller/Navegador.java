@@ -13,6 +13,7 @@ public class Navegador {
 
 	/**
 	 * Construtor da classe.
+	 * 
 	 * @param janela Referência ao JFrame.
 	 */
 	public Navegador(view.Principal principal) {
@@ -20,7 +21,9 @@ public class Navegador {
 	}
 
 	/**
-	 * Método responsável por chamar o método da view que adiciona as telas ao painel principal.
+	 * Método responsável por chamar o método da view que adiciona as telas ao
+	 * painel principal.
+	 * 
 	 * @param nome Nome do painel.
 	 * @param tela Painel que será adicionado.
 	 */
@@ -30,6 +33,7 @@ public class Navegador {
 
 	/**
 	 * Método responsável por chamar o método da view que navega para outra tela.
+	 * 
 	 * @param nome Nome da tela.
 	 */
 	public void navegarPara(String nome) {

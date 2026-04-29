@@ -18,7 +18,6 @@ public class ProdutoController extends ComponentAdapter {
 		this.model = model;
 		this.navegador = navegador;
 
-		
 		this.view.cadastroproduto(e -> {
 			String nome = view.getNome();
 			String qtdStr = view.getQtd();
@@ -34,10 +33,9 @@ public class ProdutoController extends ComponentAdapter {
 
 					this.view.limparCampos();
 					this.view.exibirMensagem("Sucesso", "Produto cadastrado com sucesso!", 1);
-					
-					
+
 					carregarTabela();
-					
+
 				} catch (NumberFormatException ex) {
 					this.view.exibirMensagem("Erro", "Quantidade ou preço inválido. Use apenas números.", 0);
 				}
@@ -46,47 +44,41 @@ public class ProdutoController extends ComponentAdapter {
 			}
 		});
 
-		
 		this.view.acaoExcluir(e -> {
 			int linhaSelecionada = this.view.getTabelaProdutos().getSelectedRow();
-			
+
 			if (linhaSelecionada != -1) {
-				
+
 				int idProduto = (int) this.view.getModeloTabela().getValueAt(linhaSelecionada, 0);
-				
-				
+
 				this.model.excluirProduto(idProduto);
-				
+
 				this.view.exibirMensagem("Excluído", "Produto excluído com sucesso!", 1);
-				
-				
+
 				carregarTabela();
 			} else {
 				this.view.exibirMensagem("Erro", "Selecione um produto na tabela para excluir.", 0);
 			}
 		});
 
-		
 		this.view.acaoSair(e -> {
 			this.view.limparCampos();
 			this.view.limparTabela();
-			this.navegador.navegarPara("LOGIN"); 
+			this.navegador.navegarPara("LOGIN");
 		});
 	}
 
-	
 	@Override
 	public void componentShown(ComponentEvent e) {
 		carregarTabela();
 	}
 
-	
 	private void carregarTabela() {
 		DefaultTableModel modelo = this.view.getModeloTabela();
 		this.view.limparTabela();
-		
+
 		List<Produto> produtos = this.model.listarTodos();
-		
+
 		for (Produto p : produtos) {
 			modelo.addRow(new Object[] { p.getId(), p.getNomeProduto(), p.getPrecoUnitario(), p.getQtd() });
 		}

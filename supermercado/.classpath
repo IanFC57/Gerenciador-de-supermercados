@@ -8,6 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="com.miglayout.swing_11.4.2.jar"/>
 	<classpathentry kind="lib" path="com.miglayout.core_11.4.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/aluno/git/Gerenciador-de-supermercados/Gerenciador-de-supermercados/supermercado/lib/mysql-connector-j-9.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aluno/git/Gerenciador-de-supermercados/supermercado/lib/mysql-connector-j-9.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
