@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +26,7 @@ public class TelaCadastroProdutos extends JPanel {
 	private DefaultTableModel modeloTabela;
 
 	public TelaCadastroProdutos() {
+		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
 		setLayout(new MigLayout("", "[grow 10][][][grow 10]", "[][][][][][grow][]"));
 

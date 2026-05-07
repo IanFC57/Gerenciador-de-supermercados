@@ -13,6 +13,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.SystemColor;
 import javax.swing.JRadioButton;
 
@@ -29,6 +30,7 @@ public class TelaCadastro extends JPanel {
 	 * Create the panel.
 	 */
 	public TelaCadastro() {
+		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
 		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 2][][][][][grow 2][]"));
 

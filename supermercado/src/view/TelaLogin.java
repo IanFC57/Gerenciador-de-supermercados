@@ -12,6 +12,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,7 @@ public class TelaLogin extends JPanel {
 	 * Create the panel.
 	 */
 	public TelaLogin() {
+		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
 		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 5][][][][][grow 5][]"));
 

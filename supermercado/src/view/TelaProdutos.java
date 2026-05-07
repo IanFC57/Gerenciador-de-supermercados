@@ -7,6 +7,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -26,6 +28,7 @@ public class TelaProdutos extends JPanel {
 	private JSpinner spinnerQtd;
 
 	public TelaProdutos() {
+		setPreferredSize(new Dimension(750, 800));
 		setLayout(new MigLayout("", "[][grow][]", "[][][grow 10][][][grow][grow 10]"));
 
 		JLabel lblNewLabel = new JLabel("Produtos");

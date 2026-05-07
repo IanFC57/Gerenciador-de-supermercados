@@ -16,7 +16,8 @@ public class Principal extends JFrame {
 
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 600, 675);
+		setSize(750, 800);
+		setResizable(false);
 
 		this.cardLayout = new CardLayout();
 
@@ -44,7 +45,7 @@ public class Principal extends JFrame {
 	 */
 	public void mostrarTela(String nome) {
 		this.cardLayout.show(this.contentPane, nome);
-		this.pack();
+		
 	}
 
 }
