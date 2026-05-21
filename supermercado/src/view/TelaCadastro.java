@@ -4,15 +4,14 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
+import java.text.ParseException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
 import javax.swing.JRadioButton;
@@ -21,14 +20,11 @@ public class TelaCadastro extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField TFUsuario;
-	private JTextField TFCPF;
+	private JFormattedTextField TFCPF; // Alterado para JFormattedTextField
 	private JButton BTCadastrar, btnSair;
 	private ButtonGroup b;
 	private JRadioButton RBSim, RBNao;
 
-	/**
-	 * Create the panel.
-	 */
 	public TelaCadastro() {
 		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
@@ -52,7 +48,14 @@ public class TelaCadastro extends JPanel {
 
 		this.BTCadastrar = new JButton("Cadastrar");
 
-		TFCPF = new JTextField();
+		// Implementação da Máscara de CPF
+		try {
+			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
+			mascaraCPF.setPlaceholderCharacter('_');
+			TFCPF = new JFormattedTextField(mascaraCPF);
+		} catch (ParseException e) {
+			TFCPF = new JFormattedTextField();
+		}
 		add(TFCPF, "cell 2 3,growx");
 		TFCPF.setColumns(10);
 
@@ -62,7 +65,6 @@ public class TelaCadastro extends JPanel {
 
 		RBSim = new JRadioButton("Sim");
 		add(RBSim, "cell 2 5,aligny center");
-//		RBSim.isSelected()
 
 		RBNao = new JRadioButton("Não");
 		add(RBNao, "cell 2 5,aligny center");
@@ -72,7 +74,6 @@ public class TelaCadastro extends JPanel {
 
 		btnSair = new JButton("Sair");
 		add(btnSair, "cell 2 6");
-
 	}
 
 	public void cadastrar(ActionListener actionListener) {
@@ -92,15 +93,12 @@ public class TelaCadastro extends JPanel {
 	}
 
 	public void limparCampos() {
-		this.TFUsuario.setText(" ");
-		this.TFCPF.setText(" ");
-
+		this.TFUsuario.setText("");
+		this.TFCPF.setValue(null); // Limpa corretamente o campo formatado
 	}
 
 	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {
 		JOptionPane.showMessageDialog(null, mensagem, titulo, tipoMensagem);
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean getAdmin() {

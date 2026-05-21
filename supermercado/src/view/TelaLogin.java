@@ -4,18 +4,15 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
+import java.text.ParseException;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class TelaLogin extends JPanel {
@@ -24,11 +21,8 @@ public class TelaLogin extends JPanel {
 	private JTextField TFUsuario;
 	private JButton BTEntrar;
 	private JLabel LNao;
-	private JTextField TFCpf;
+	private JFormattedTextField TFCpf; // Alterado para JFormattedTextField
 
-	/**
-	 * Create the panel.
-	 */
 	public TelaLogin() {
 		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
@@ -50,7 +44,15 @@ public class TelaLogin extends JPanel {
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCPF, "cell 1 3,alignx trailing");
 
-		TFCpf = new JTextField();
+		// Implementação da Máscara de CPF
+		try {
+			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
+			mascaraCPF.setPlaceholderCharacter('_');
+			TFCpf = new JFormattedTextField(mascaraCPF);
+		} catch (ParseException e) {
+			TFCpf = new JFormattedTextField();
+		}
+		
 		add(TFCpf, "cell 2 3,growx");
 		TFCpf.setColumns(10);
 
@@ -60,7 +62,6 @@ public class TelaLogin extends JPanel {
 		LNao = new JLabel("Não possui uma conta?");
 		LNao.setFont(new Font("Tahoma", Font.BOLD, 12));
 		add(LNao, "cell 2 6,alignx center");
-
 	}
 
 	public String getUsuario() {
@@ -79,9 +80,7 @@ public class TelaLogin extends JPanel {
 		this.BTEntrar.addActionListener(actionlistener);
 	}
 
-	public void exibirMensagem(String string, String string2, int i) {
-		JOptionPane.showMessageDialog(null, "Certo!");
-
+	public void exibirMensagem(String titulo, String mensagem, int tipo) {
+		JOptionPane.showMessageDialog(null, mensagem, titulo, tipo);
 	}
-
 }

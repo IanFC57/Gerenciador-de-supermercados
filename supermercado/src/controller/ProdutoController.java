@@ -4,6 +4,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import exception.PersistenciaException;
+import exception.ValidacaoException;
 import model.Produto;
 import model.produtoDAO;
 import view.TelaCadastroProdutos;
@@ -19,45 +21,58 @@ public class ProdutoController extends ComponentAdapter {
 		this.navegador = navegador;
 
 		this.view.cadastroproduto(e -> {
-			String nome = view.getNome();
-			String qtdStr = view.getQtd();
-			String precoStr = view.getPreco();
+			try {
+				String nome = view.getNome();
+				String qtdStr = view.getQtd();
+				String precoStr = view.getPreco();
 
-			if (!nome.isBlank() && !qtdStr.isBlank() && !precoStr.isBlank()) {
-				try {
-					int qtd = Integer.parseInt(qtdStr);
-					double preco = Double.parseDouble(precoStr.replace(",", "."));
-
-					Produto p = new Produto(0, nome, preco, qtd);
-					this.model.adicionarProduto(p);
-
-					this.view.limparCampos();
-					this.view.exibirMensagem("Sucesso", "Produto cadastrado com sucesso!", 1);
-
-					carregarTabela();
-
-				} catch (NumberFormatException ex) {
-					this.view.exibirMensagem("Erro", "Quantidade ou preço inválido. Use apenas números.", 0);
+				if (nome == null || nome.trim().isEmpty() || 
+					qtdStr == null || qtdStr.trim().isEmpty() || 
+					precoStr == null || precoStr.trim().isEmpty()) {
+					throw new ValidacaoException("Todos os campos de produto são de preenchimento obrigatório.");
 				}
-			} else {
-				this.view.exibirMensagem("Aviso", "Preencha todos os campos!", 2);
+
+				int qtd = Integer.parseInt(qtdStr.trim());
+				double preco = Double.parseDouble(precoStr.replace(",", ".").trim());
+
+				if (qtd < 0 || preco < 0) {
+					throw new ValidacaoException("Não pode inserir valores negativos de quantidade ou preço.");
+				}
+
+				Produto p = new Produto(0, nome.trim(), preco, qtd);
+				this.model.adicionarProduto(p);
+
+				this.view.limparCampos();
+				this.view.exibirMensagem("Sucesso", "Produto adicionado com sucesso!", 1);
+				carregarTabela();
+
+			} catch (NumberFormatException ex) { // Trata uma exceção unchecked gerada por formatação nativa [cite: 64]
+				this.view.exibirMensagem("Erro de Formato", "Quantidade ou preço inválido. Use apenas números.", 0);
+			} catch (ValidacaoException ex) {
+				this.view.exibirMensagem("Aviso", ex.getMessage(), 2);
+			} catch (PersistenciaException ex) {
+				this.view.exibirMensagem("Erro de Sistema", "Falha ao gravar o produto: " + ex.getMessage(), 0);
 			}
 		});
 
 		this.view.acaoExcluir(e -> {
-			int linhaSelecionada = this.view.getTabelaProdutos().getSelectedRow();
+			try {
+				int linhaSelecionada = this.view.getTabelaProdutos().getSelectedRow();
 
-			if (linhaSelecionada != -1) {
+				if (linhaSelecionada == -1) {
+					throw new ValidacaoException("Selecione um produto na tabela para poder excluí-lo.");
+				}
 
 				int idProduto = (int) this.view.getModeloTabela().getValueAt(linhaSelecionada, 0);
-
 				this.model.excluirProduto(idProduto);
 
 				this.view.exibirMensagem("Excluído", "Produto excluído com sucesso!", 1);
-
 				carregarTabela();
-			} else {
-				this.view.exibirMensagem("Erro", "Selecione um produto na tabela para excluir.", 0);
+
+			} catch (ValidacaoException ex) {
+				this.view.exibirMensagem("Aviso", ex.getMessage(), 2);
+			} catch (PersistenciaException ex) {
+				this.view.exibirMensagem("Erro Crítico", "Erro ao excluir o produto: " + ex.getMessage(), 0);
 			}
 		});
 
@@ -74,13 +89,17 @@ public class ProdutoController extends ComponentAdapter {
 	}
 
 	private void carregarTabela() {
-		DefaultTableModel modelo = this.view.getModeloTabela();
-		this.view.limparTabela();
+		try {
+			DefaultTableModel modelo = this.view.getModeloTabela();
+			this.view.limparTabela();
 
-		List<Produto> produtos = this.model.listarTodos();
+			List<Produto> produtos = this.model.listarTodos();
 
-		for (Produto p : produtos) {
-			modelo.addRow(new Object[] { p.getId(), p.getNomeProduto(), p.getPrecoUnitario(), p.getQtd() });
+			for (Produto p : produtos) {
+				modelo.addRow(new Object[] { p.getId(), p.getNomeProduto(), p.getPrecoUnitario(), p.getQtd() });
+			}
+		} catch (PersistenciaException ex) {
+			this.view.exibirMensagem("Falha", "Não foi possível conectar ao banco de dados para listar produtos: " + ex.getMessage(), 0);
 		}
 	}
 }

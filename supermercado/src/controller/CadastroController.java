@@ -1,15 +1,12 @@
 package controller;
 
 import java.awt.event.ComponentAdapter;
-
+import exception.PersistenciaException;
+import exception.ValidacaoException;
 import model.Cliente;
 import model.ClienteDAO;
 import view.TelaCadastro;
 
-/**
- * Classe responsável pela comunicação entre a view (TelaCadastro) e o model
- * (candidatoDAO). SUPERMERCADO
- */
 public class CadastroController extends ComponentAdapter {
 	private final TelaCadastro view;
 	private final ClienteDAO model;
@@ -21,19 +18,33 @@ public class CadastroController extends ComponentAdapter {
 		this.navegador = navegador;
 
 		this.view.cadastrar(e -> {
-			String nome = view.getNome();
-			String CPF = view.getCPF();
-			boolean isAdmin = view.getAdmin();
+			try {
+				String nome = view.getNome();
+				String cpfFormatado = view.getCPF();
+				boolean isAdmin = view.getAdmin();
 
-			if (!nome.isBlank() && !CPF.isBlank()) {
-				Cliente c = new Cliente(nome, CPF, isAdmin);
+				// Retira pontos e traço da máscara para validação no código
+				String cpfLimpo = cpfFormatado.replaceAll("[^0-9]", "");
+
+				// Validações defensivas lançando a nossa exceção gerada manualmente via 'throw'
+				if (nome == null || nome.trim().isEmpty()) {
+					throw new ValidacaoException("O campo Nome deve ser preenchido.");
+				}
+				if (cpfLimpo.length() != 11) {
+					throw new ValidacaoException("Por favor, preencha o CPF completamente.");
+				}
+
+				Cliente c = new Cliente(nome.trim(), cpfLimpo, isAdmin);
 				this.model.adicionarCliente(c);
 
 				this.view.limparCampos();
-				this.view.exibirMensagem("Cadastro", "Cadastro feito com sucesso!", 1);
+				this.view.exibirMensagem("Cadastro", "Cadastro efetuado com sucesso!", 1);
 				this.navegador.navegarPara("LOGIN");
-			} else {
-				this.view.exibirMensagem("Erro", "Preencha todos os campos!", 0);
+
+			} catch (ValidacaoException ex) {
+				this.view.exibirMensagem("Aviso", ex.getMessage(), 2);
+			} catch (PersistenciaException ex) {
+				this.view.exibirMensagem("Erro", "Erro ao cadastrar: " + ex.getMessage(), 0);
 			}
 		});
 
@@ -42,5 +53,4 @@ public class CadastroController extends ComponentAdapter {
 			this.navegador.navegarPara("LOGIN");
 		});
 	}
-
 }
