@@ -19,6 +19,7 @@ public class ProdutoController extends ComponentAdapter {
 		this.view = view;
 		this.model = model;
 		this.navegador = navegador;
+		
 
 		this.view.cadastroproduto(e -> {
 			try {
