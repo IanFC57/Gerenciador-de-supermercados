@@ -12,8 +12,7 @@ public class produtoDAO {
 
 	public void adicionarProduto(Produto produto) {
 		String sql = "INSERT INTO produto (nome_produto, qtd, preco) VALUES (?, ?, ?)";
-		try (Connection conexao = BancoDeDados.conectar(); 
-		     PreparedStatement pstm = conexao.prepareStatement(sql)) {
+		try (Connection conexao = BancoDeDados.conectar(); PreparedStatement pstm = conexao.prepareStatement(sql)) {
 
 			pstm.setString(1, produto.getNomeProduto());
 			pstm.setInt(2, produto.getQtd());
@@ -30,12 +29,12 @@ public class produtoDAO {
 		String sql = "SELECT * FROM produto";
 
 		try (Connection conexao = BancoDeDados.conectar();
-			 PreparedStatement pstm = conexao.prepareStatement(sql);
-			 ResultSet rs = pstm.executeQuery()) {
+				PreparedStatement pstm = conexao.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery()) {
 
 			while (rs.next()) {
-				Produto p = new Produto(rs.getInt("id_produto"), rs.getString("nome_produto"), 
-				                        rs.getDouble("preco"), rs.getInt("qtd"));
+				Produto p = new Produto(rs.getInt("id_produto"), rs.getString("nome_produto"), rs.getDouble("preco"),
+						rs.getInt("qtd"));
 				produtos.add(p);
 			}
 		} catch (SQLException e) {
@@ -46,8 +45,7 @@ public class produtoDAO {
 
 	public void baixarEstoque(int idProduto, int quantidadeComprada) {
 		String sql = "UPDATE produto SET qtd = qtd - ? WHERE id_produto = ?";
-		try (Connection conexao = BancoDeDados.conectar(); 
-		     PreparedStatement pstm = conexao.prepareStatement(sql)) {
+		try (Connection conexao = BancoDeDados.conectar(); PreparedStatement pstm = conexao.prepareStatement(sql)) {
 
 			pstm.setInt(1, quantidadeComprada);
 			pstm.setInt(2, idProduto);
@@ -60,8 +58,7 @@ public class produtoDAO {
 
 	public void excluirProduto(int idProduto) {
 		String sql = "DELETE FROM produto WHERE id_produto = ?";
-		try (Connection conexao = BancoDeDados.conectar();
-			 PreparedStatement pstm = conexao.prepareStatement(sql)) {
+		try (Connection conexao = BancoDeDados.conectar(); PreparedStatement pstm = conexao.prepareStatement(sql)) {
 
 			pstm.setInt(1, idProduto);
 			pstm.executeUpdate();

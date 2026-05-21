@@ -21,7 +21,7 @@ public class TelaLogin extends JPanel {
 	private JTextField TFUsuario;
 	private JButton BTEntrar;
 	private JLabel LNao;
-	private JFormattedTextField TFCpf; // Alterado para JFormattedTextField
+	private JFormattedTextField TFCpf;
 
 	public TelaLogin() {
 		setPreferredSize(new Dimension(750, 800));
@@ -44,7 +44,6 @@ public class TelaLogin extends JPanel {
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCPF, "cell 1 3,alignx trailing");
 
-		// Implementação da Máscara de CPF
 		try {
 			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
 			mascaraCPF.setPlaceholderCharacter('_');
@@ -52,7 +51,7 @@ public class TelaLogin extends JPanel {
 		} catch (ParseException e) {
 			TFCpf = new JFormattedTextField();
 		}
-		
+
 		add(TFCpf, "cell 2 3,growx");
 		TFCpf.setColumns(10);
 

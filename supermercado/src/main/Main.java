@@ -43,6 +43,7 @@ public class Main {
 		CadastroController cadastroController = new CadastroController(telaCadastro, clienteDAO, navegador);
 		LoginController loginController = new LoginController(telaLogin, clienteDAO, navegador, compraController);
 
+		// Navegação
 		navegador.adicionarPainel("LOGIN", telaLogin);
 		navegador.adicionarPainel("CADASTRO", telaCadastro);
 		navegador.adicionarPainel("CADASTRO_PRODUTOS", telaCadastroProdutos);

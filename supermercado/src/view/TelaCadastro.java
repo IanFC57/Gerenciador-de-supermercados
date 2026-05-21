@@ -48,7 +48,6 @@ public class TelaCadastro extends JPanel {
 
 		this.BTCadastrar = new JButton("Cadastrar");
 
-		// Implementação da Máscara de CPF
 		try {
 			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
 			mascaraCPF.setPlaceholderCharacter('_');
@@ -94,7 +93,7 @@ public class TelaCadastro extends JPanel {
 
 	public void limparCampos() {
 		this.TFUsuario.setText("");
-		this.TFCPF.setValue(null); // Limpa corretamente o campo formatado
+		this.TFCPF.setValue(null);
 	}
 
 	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {

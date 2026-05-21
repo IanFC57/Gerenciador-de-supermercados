@@ -19,7 +19,6 @@ public class ProdutoController extends ComponentAdapter {
 		this.view = view;
 		this.model = model;
 		this.navegador = navegador;
-		
 
 		this.view.cadastroproduto(e -> {
 			try {
@@ -27,10 +26,13 @@ public class ProdutoController extends ComponentAdapter {
 				String qtdStr = view.getQtd();
 				String precoStr = view.getPreco();
 
-				if (nome == null || nome.trim().isEmpty() || 
-					qtdStr == null || qtdStr.trim().isEmpty() || 
-					precoStr == null || precoStr.trim().isEmpty()) {
+				if (nome == null || nome.trim().isEmpty() || qtdStr == null || qtdStr.trim().isEmpty()
+						|| precoStr == null || precoStr.trim().isEmpty()) {
 					throw new ValidacaoException("Todos os campos de produto são de preenchimento obrigatório.");
+				}
+
+				if (nome.matches(".*\\d.*")) {
+					throw new ValidacaoException("O nome do produto não pode conter números.");
 				}
 
 				int qtd = Integer.parseInt(qtdStr.trim());
@@ -47,7 +49,7 @@ public class ProdutoController extends ComponentAdapter {
 				this.view.exibirMensagem("Sucesso", "Produto adicionado com sucesso!", 1);
 				carregarTabela();
 
-			} catch (NumberFormatException ex) { // Trata uma exceção unchecked gerada por formatação nativa [cite: 64]
+			} catch (NumberFormatException ex) {
 				this.view.exibirMensagem("Erro de Formato", "Quantidade ou preço inválido. Use apenas números.", 0);
 			} catch (ValidacaoException ex) {
 				this.view.exibirMensagem("Aviso", ex.getMessage(), 2);
@@ -100,7 +102,8 @@ public class ProdutoController extends ComponentAdapter {
 				modelo.addRow(new Object[] { p.getId(), p.getNomeProduto(), p.getPrecoUnitario(), p.getQtd() });
 			}
 		} catch (PersistenciaException ex) {
-			this.view.exibirMensagem("Falha", "Não foi possível conectar ao banco de dados para listar produtos: " + ex.getMessage(), 0);
+			this.view.exibirMensagem("Falha",
+					"Não foi possível conectar ao banco de dados para listar produtos: " + ex.getMessage(), 0);
 		}
 	}
 }

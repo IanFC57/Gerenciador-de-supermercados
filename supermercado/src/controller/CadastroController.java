@@ -23,10 +23,8 @@ public class CadastroController extends ComponentAdapter {
 				String cpfFormatado = view.getCPF();
 				boolean isAdmin = view.getAdmin();
 
-				// Retira pontos e traço da máscara para validação no código
 				String cpfLimpo = cpfFormatado.replaceAll("[^0-9]", "");
 
-				// Validações defensivas lançando a nossa exceção gerada manualmente via 'throw'
 				if (nome == null || nome.trim().isEmpty()) {
 					throw new ValidacaoException("O campo Nome deve ser preenchido.");
 				}
