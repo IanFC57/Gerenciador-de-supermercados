@@ -1,85 +1,99 @@
 package view;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
+import java.awt.*;
+import java.awt.event.*;
 import java.text.ParseException;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.Dimension;
-import java.awt.SystemColor;
-import java.awt.event.MouseListener;
 
 public class TelaLogin extends JPanel {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-	private JTextField TFUsuario;
-	private JButton BTEntrar;
-	private JLabel LNao;
-	private JFormattedTextField TFCpf;
+    private JFormattedTextField tfCpf;
+    private JPasswordField      pfSenha;
+    private JButton             btnEntrar;
+    private JLabel              lblCadastrar;
 
-	public TelaLogin() {
-		setPreferredSize(new Dimension(750, 800));
-		setBackground(SystemColor.inactiveCaptionBorder);
-		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 5][][][][][grow 5][]"));
+    public TelaLogin() {
+        setPreferredSize(new Dimension(750, 800));
+        setBackground(new Color(240, 242, 245));
+        setLayout(new MigLayout("fill, insets 0", "[grow]", "[grow][][][][][][][grow][]"));
 
-		JLabel lblNewLabel = new JLabel("Seja Bem Vindo");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		add(lblNewLabel, "cell 2 0,alignx center,aligny center");
+        // ── Título ──────────────────────────────────────────
+        JLabel lblTitulo = new JLabel("Supermercado Manager");
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitulo.setForeground(new Color(33, 90, 170));
+        add(lblTitulo, "cell 0 1, alignx center");
 
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblNome, "cell 1 1,alignx center");
+        JLabel lblSub = new JLabel("Faça login para continuar");
+        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblSub.setForeground(Color.GRAY);
+        add(lblSub, "cell 0 2, alignx center");
 
-		TFUsuario = new JTextField();
-		add(TFUsuario, "cell 2 1,growx");
-		TFUsuario.setColumns(10);
+        // ── Painel central ───────────────────────────────────
+        JPanel card = new JPanel(new MigLayout("wrap 1, insets 30 40 30 40, gapy 8", "[300]"));
+        card.setBackground(Color.WHITE);
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(220, 220, 220)),
+            BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
-		JLabel lblCPF = new JLabel("CPF:");
-		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblCPF, "cell 1 3,alignx trailing");
+        card.add(label("CPF:"), "");
+        try {
+            MaskFormatter mask = new MaskFormatter("###.###.###-##");
+            mask.setPlaceholderCharacter('_');
+            tfCpf = new JFormattedTextField(mask);
+        } catch (ParseException e) {
+            tfCpf = new JFormattedTextField();
+        }
+        tfCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        tfCpf.setPreferredSize(new Dimension(300, 34));
+        card.add(tfCpf, "growx");
 
-		try {
-			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
-			mascaraCPF.setPlaceholderCharacter('_');
-			TFCpf = new JFormattedTextField(mascaraCPF);
-		} catch (ParseException e) {
-			TFCpf = new JFormattedTextField();
-		}
+        card.add(label("Senha:"), "");
+        pfSenha = new JPasswordField();
+        pfSenha.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        pfSenha.setPreferredSize(new Dimension(300, 34));
+        card.add(pfSenha, "growx");
 
-		add(TFCpf, "cell 2 3,growx");
-		TFCpf.setColumns(10);
+        btnEntrar = new JButton("Entrar");
+        btnEntrar.setBackground(new Color(33, 90, 170));
+        btnEntrar.setForeground(Color.WHITE);
+        btnEntrar.setFocusPainted(false);
+        btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnEntrar.setPreferredSize(new Dimension(300, 38));
+        btnEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        card.add(btnEntrar, "growx, gaptop 10");
 
-		BTEntrar = new JButton("Entrar");
-		add(BTEntrar, "flowx,cell 2 5,alignx center");
+        lblCadastrar = new JLabel("<html><u>Não possui uma conta? Cadastre-se</u></html>");
+        lblCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblCadastrar.setForeground(new Color(33, 90, 170));
+        lblCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        card.add(lblCadastrar, "alignx center, gaptop 8");
 
-		LNao = new JLabel("Não possui uma conta?");
-		LNao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		add(LNao, "cell 2 6,alignx center");
-	}
+        add(card, "cell 0 4, alignx center");
+    }
 
-	public String getUsuario() {
-		return this.TFUsuario.getText();
-	}
+    private JLabel label(String txt) {
+        JLabel l = new JLabel(txt);
+        l.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        return l;
+    }
 
-	public String getCpf() {
-		return this.TFCpf.getText();
-	}
+    // ── Getters ──────────────────────────────────────────────
+    public String getCpf()   { return tfCpf.getText(); }
+    public String getSenha() { return new String(pfSenha.getPassword()); }
 
-	public void Cadastro(MouseListener mouselistener) {
-		this.LNao.addMouseListener(mouselistener);
-	}
+    public void limparCampos() {
+        tfCpf.setValue(null);
+        pfSenha.setText("");
+    }
 
-	public void autenticar(ActionListener actionlistener) {
-		this.BTEntrar.addActionListener(actionlistener);
-	}
+    // ── Ações ────────────────────────────────────────────────
+    public void autenticar(ActionListener al) { btnEntrar.addActionListener(al); }
+    public void acaoCadastrar(MouseListener ml) { lblCadastrar.addMouseListener(ml); }
 
-	public void exibirMensagem(String titulo, String mensagem, int tipo) {
-		JOptionPane.showMessageDialog(null, mensagem, titulo, tipo);
-	}
+    public void exibirMensagem(String titulo, String mensagem, int tipo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, tipo);
+    }
 }

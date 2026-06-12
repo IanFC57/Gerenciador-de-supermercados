@@ -1,51 +1,33 @@
 package view;
 
-import java.awt.EventQueue;
+import javax.swing.*;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-
+/**
+ * Frame principal — contém o CardLayout com todas as telas.
+ */
 public class Principal extends JFrame {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private CardLayout cardLayout;
+    private final JPanel     container;
+    private final CardLayout cardLayout;
 
-	public Principal() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(750, 800);
-		setResizable(false);
+    public Principal() {
+        super("Supermercado Manager");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
-		this.cardLayout = new CardLayout();
+        cardLayout = new CardLayout();
+        container  = new JPanel(cardLayout);
+        add(container);
+    }
 
-		this.contentPane = new JPanel(this.cardLayout);
-		this.contentPane.setPreferredSize(new Dimension(600, 675));
-		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(this.contentPane);
-	}
+    public JPanel    getContainer()  { return container; }
+    public CardLayout getCardLayout(){ return cardLayout; }
 
-	/**
-	 * Método responsável por adicionar os painéis que representam cada tela da
-	 * aplicação ao painel principal.
-	 * 
-	 * @param nome Nome do painel.
-	 * @param tela Painel que será adicionado.
-	 */
-	public void adicionarTela(String nome, JPanel tela) {
-		this.contentPane.add(tela, nome);
-	}
-
-	/**
-	 * Método responsável por mostrar uma tela (painel) específica.
-	 * 
-	 * @param nome Nome do painel.
-	 */
-	public void mostrarTela(String nome) {
-		this.cardLayout.show(this.contentPane, nome);
-		
-	}
-
+    public void exibir() {
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
 }
