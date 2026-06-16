@@ -18,6 +18,7 @@ public class Principal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(750, 800);
 		setResizable(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		this.cardLayout = new CardLayout();
 
