@@ -10,7 +10,7 @@ import controller.LoginController;
 import controller.Navegador;
 import controller.ProdutoController;
 import model.ClienteDAO;
-import model.produtoDAO;
+import model.ProdutoDAO;
 import view.Principal;
 import view.TelaCadastro;
 import view.TelaCadastroProdutos;
@@ -27,7 +27,7 @@ public class Main {
 
 		// DAOs
 		ClienteDAO clienteDAO = new ClienteDAO();
-		produtoDAO produtoDao = new produtoDAO();
+		ProdutoDAO produtoDao = new ProdutoDAO();
 
 		// Views
 		TelaLogin telaLogin = new TelaLogin();

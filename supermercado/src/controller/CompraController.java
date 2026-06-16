@@ -6,17 +6,17 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Produto;
-import model.produtoDAO;
+import model.ProdutoDAO;
 import view.TelaProdutos;
 
 public class CompraController extends ComponentAdapter {
 	private final TelaProdutos view;
-	private final produtoDAO model;
+	private final ProdutoDAO model;
 	private final Navegador navegador;
 	private Cliente clienteLogado;
 	private double valorTotal = 0.0;
 
-	public CompraController(TelaProdutos view, produtoDAO model, Navegador navegador) {
+	public CompraController(TelaProdutos view, ProdutoDAO model, Navegador navegador) {
 		this.view = view;
 		this.model = model;
 		this.navegador = navegador;

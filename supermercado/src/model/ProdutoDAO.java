@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import exception.PersistenciaException;
 
-public class produtoDAO {
+public class ProdutoDAO {
 
 	public void adicionarProduto(Produto produto) {
 		String sql = "INSERT INTO produto (nome_produto, qtd, preco) VALUES (?, ?, ?)";

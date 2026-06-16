@@ -7,15 +7,15 @@ import javax.swing.table.DefaultTableModel;
 import exception.PersistenciaException;
 import exception.ValidacaoException;
 import model.Produto;
-import model.produtoDAO;
+import model.ProdutoDAO;
 import view.TelaCadastroProdutos;
 
 public class ProdutoController extends ComponentAdapter {
 	private final TelaCadastroProdutos view;
-	private final produtoDAO model;
+	private final ProdutoDAO model;
 	private final Navegador navegador;
 
-	public ProdutoController(TelaCadastroProdutos view, produtoDAO model, Navegador navegador) {
+	public ProdutoController(TelaCadastroProdutos view, ProdutoDAO model, Navegador navegador) {
 		this.view = view;
 		this.model = model;
 		this.navegador = navegador;

@@ -1,26 +1,15 @@
 package model;
 
 public class Cliente {
-	private int id;
 	private String nome;
-	private String cpf;
+	private String CPF;
 	private boolean isAdmin;
-	private String senhaHash;
 
-	public Cliente(int id, String nome, String cpf, boolean isAdmin, String senhaHash) {
-		this.id = id;
+	public Cliente(String nome, String cPF, boolean isAdmin) {
+		super();
 		this.nome = nome;
-		this.cpf = cpf;
+		CPF = cPF;
 		this.isAdmin = isAdmin;
-		this.senhaHash = senhaHash;
-	}
-
-	public Cliente(String nome, String cpf, boolean isAdmin) {
-		this(0, nome, cpf, isAdmin, null);
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public String getNome() {
@@ -28,14 +17,11 @@ public class Cliente {
 	}
 
 	public String getCPF() {
-		return cpf;
+		return CPF;
 	}
 
 	public boolean isAdmin() {
 		return isAdmin;
 	}
 
-	public String getSenhaHash() {
-		return senhaHash;
-	}
 }

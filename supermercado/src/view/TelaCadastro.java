@@ -1,131 +1,106 @@
 package view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
-import java.awt.*;
-import java.awt.event.*;
 import java.text.ParseException;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.SystemColor;
+import javax.swing.JRadioButton;
 
 public class TelaCadastro extends JPanel {
-    private static final long serialVersionUID = 1L;
 
-    private JTextField          tfNome;
-    private JFormattedTextField tfCpf;
-    private JPasswordField      pfSenha;
-    private JPasswordField      pfConfirmarSenha;
-    private JRadioButton        rbSim, rbNao;
-    private ButtonGroup         grupo;
-    private JButton             btnCadastrar, btnSair;
+	private static final long serialVersionUID = 1L;
+	private JTextField TFUsuario;
+	private JFormattedTextField TFCPF; // Alterado para JFormattedTextField
+	private JButton BTCadastrar, btnSair;
+	private ButtonGroup b;
+	private JRadioButton RBSim, RBNao;
 
-    public TelaCadastro() {
-        setPreferredSize(new Dimension(750, 800));
-        setBackground(new Color(240, 242, 245));
-        setLayout(new MigLayout("fill, insets 0", "[grow]", "[grow][][][grow][]"));
+	public TelaCadastro() {
+		setPreferredSize(new Dimension(750, 800));
+		setBackground(SystemColor.inactiveCaptionBorder);
+		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 2][][][][][grow 2][]"));
 
-        JLabel lblTitulo = new JLabel("Criar Conta");
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lblTitulo.setForeground(new Color(33, 90, 170));
-        add(lblTitulo, "cell 0 1, alignx center");
+		JLabel lblNewLabel_1 = new JLabel("Cadastre-se");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		add(lblNewLabel_1, "cell 2 0,alignx center");
 
-        JPanel card = new JPanel(new MigLayout("wrap 2, insets 30 40 30 40, gapy 8", "[][300]"));
-        card.setBackground(Color.WHITE);
-        card.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblNome, "cell 1 2,alignx left");
 
-        // Nome
-        card.add(label("Nome:"), "");
-        tfNome = new JTextField();
-        tfNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        tfNome.setPreferredSize(new Dimension(300, 34));
-        card.add(tfNome, "growx");
+		TFUsuario = new JTextField();
+		add(TFUsuario, "cell 2 2,growx");
+		TFUsuario.setColumns(10);
 
-        // CPF
-        card.add(label("CPF:"), "");
-        try {
-            MaskFormatter mask = new MaskFormatter("###.###.###-##");
-            mask.setPlaceholderCharacter('_');
-            tfCpf = new JFormattedTextField(mask);
-        } catch (ParseException e) {
-            tfCpf = new JFormattedTextField();
-        }
-        tfCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        tfCpf.setPreferredSize(new Dimension(300, 34));
-        card.add(tfCpf, "growx");
+		JLabel lblCPF = new JLabel("CPF:");
+		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblCPF, "cell 1 3,alignx trailing");
 
-        // Senha
-        card.add(label("Senha:"), "");
-        pfSenha = new JPasswordField();
-        pfSenha.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        pfSenha.setPreferredSize(new Dimension(300, 34));
-        card.add(pfSenha, "growx");
+		this.BTCadastrar = new JButton("Cadastrar");
 
-        // Confirmar senha
-        card.add(label("Confirmar senha:"), "");
-        pfConfirmarSenha = new JPasswordField();
-        pfConfirmarSenha.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        pfConfirmarSenha.setPreferredSize(new Dimension(300, 34));
-        card.add(pfConfirmarSenha, "growx");
+		try {
+			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
+			mascaraCPF.setPlaceholderCharacter('_');
+			TFCPF = new JFormattedTextField(mascaraCPF);
+		} catch (ParseException e) {
+			TFCPF = new JFormattedTextField();
+		}
+		add(TFCPF, "cell 2 3,growx");
+		TFCPF.setColumns(10);
 
-        // Admin
-        card.add(label("Administrador?"), "");
-        JPanel rbPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        rbPanel.setBackground(Color.WHITE);
-        rbSim = new JRadioButton("Sim");
-        rbNao = new JRadioButton("Não");
-        rbNao.setSelected(true);
-        grupo = new ButtonGroup();
-        grupo.add(rbSim); grupo.add(rbNao);
-        rbPanel.add(rbSim); rbPanel.add(rbNao);
-        card.add(rbPanel, "");
+		JLabel lblNewLabel = new JLabel("Será um administrador?");
+		add(lblNewLabel, "flowx,cell 2 5,alignx left,aligny center");
+		add(BTCadastrar, "flowx,cell 2 6,alignx center");
 
-        // Botões
-        btnCadastrar = new JButton("Cadastrar");
-        btnCadastrar.setBackground(new Color(33, 90, 170));
-        btnCadastrar.setForeground(Color.WHITE);
-        btnCadastrar.setFocusPainted(false);
-        btnCadastrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        btnCadastrar.setPreferredSize(new Dimension(140, 38));
+		RBSim = new JRadioButton("Sim");
+		add(RBSim, "cell 2 5,aligny center");
 
-        btnSair = new JButton("Cancelar");
-        btnSair.setFocusPainted(false);
-        btnSair.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        btnSair.setPreferredSize(new Dimension(140, 38));
+		RBNao = new JRadioButton("Não");
+		add(RBNao, "cell 2 5,aligny center");
+		b = new ButtonGroup();
+		b.add(RBSim);
+		b.add(RBNao);
 
-        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        btnPanel.setBackground(Color.WHITE);
-        btnPanel.add(btnCadastrar); btnPanel.add(btnSair);
-        card.add(new JLabel(), "");
-        card.add(btnPanel, "growx, gaptop 10");
+		btnSair = new JButton("Sair");
+		add(btnSair, "cell 2 6");
+	}
 
-        add(card, "cell 0 2, alignx center");
-    }
+	public void cadastrar(ActionListener actionListener) {
+		this.BTCadastrar.addActionListener(actionListener);
+	}
 
-    private JLabel label(String txt) {
-        JLabel l = new JLabel(txt);
-        l.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        return l;
-    }
+	public void acaoSair(ActionListener actionListener) {
+		this.btnSair.addActionListener(actionListener);
+	}
 
-    // ── Getters ──────────────────────────────────────────────
-    public String  getNome()            { return tfNome.getText(); }
-    public String  getCPF()             { return tfCpf.getText(); }
-    public String  getSenha()           { return new String(pfSenha.getPassword()); }
-    public String  getConfirmarSenha()  { return new String(pfConfirmarSenha.getPassword()); }
-    public boolean getAdmin()           { return rbSim.isSelected(); }
+	public String getNome() {
+		return this.TFUsuario.getText();
+	}
 
-    public void limparCampos() {
-        tfNome.setText("");
-        tfCpf.setValue(null);
-        pfSenha.setText("");
-        pfConfirmarSenha.setText("");
-        rbNao.setSelected(true);
-    }
+	public String getCPF() {
+		return this.TFCPF.getText();
+	}
 
-    // ── Ações ────────────────────────────────────────────────
-    public void cadastrar(ActionListener al)  { btnCadastrar.addActionListener(al); }
-    public void acaoSair(ActionListener al)   { btnSair.addActionListener(al); }
+	public void limparCampos() {
+		this.TFUsuario.setText("");
+		this.TFCPF.setValue(null);
+	}
 
-    public void exibirMensagem(String titulo, String mensagem, int tipo) {
-        JOptionPane.showMessageDialog(this, mensagem, titulo, tipo);
-    }
+	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {
+		JOptionPane.showMessageDialog(null, mensagem, titulo, tipoMensagem);
+	}
+
+	public boolean getAdmin() {
+		return this.RBSim.isSelected();
+	}
 }
