@@ -28,19 +28,8 @@ public class TelaLogin extends JPanel {
 	public TelaLogin() {
 		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
-		setLayout(new MigLayout("", "[grow 10][][][grow][grow 10]", "[grow 1][][grow 1][grow 1][][grow 1][grow 1][]"));
-
-		JLabel lblNewLabel = new JLabel("Seja Bem Vindo");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		add(lblNewLabel, "cell 3 0,alignx center,aligny center");
-
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblNome, "cell 2 1,alignx center");
-
-		TFUsuario = new JTextField();
-		add(TFUsuario, "cell 3 1 1 2,grow");
-		TFUsuario.setColumns(10);
+		setLayout(new MigLayout("", "[grow 10][][][][][][][][][][][][][][][][grow 10]",
+				"[][][grow 1][][grow 1][][grow 1][][][grow 1][]"));
 
 		try {
 			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
@@ -49,25 +38,41 @@ public class TelaLogin extends JPanel {
 		} catch (ParseException e) {
 			TFCpf = new JFormattedTextField();
 		}
+
+		JLabel lblNewLabel = new JLabel("Seja Bem Vindo");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
+		add(lblNewLabel, "cell 8 1,alignx center,aligny center");
+
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		add(lblNome, "cell 1 3,alignx center");
+
+		TFUsuario = new JTextField();
+		TFUsuario.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		add(TFUsuario, "cell 2 3 14 1,grow");
+		TFUsuario.setColumns(10);
+
+		JLabel lblCPF = new JLabel("CPF:");
+		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		add(lblCPF, "cell 1 5,alignx trailing");
 		
-				JLabel lblCPF = new JLabel("CPF:");
-				lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				add(lblCPF, "cell 2 4,alignx trailing");
-		
-				add(TFCpf, "cell 3 4 1 2,grow");
-				TFCpf.setColumns(10);
+		TFCpf.setFont(new Font("Tahoma", Font.PLAIN, 17));
+
+		add(TFCpf, "cell 2 5 14 1,grow");
+		TFCpf.setColumns(10);
 
 		BTEntrar = new JButton("Entrar");
 		BTEntrar.setBackground(new Color(255, 255, 255));
+		BTEntrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		BTEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		add(BTEntrar, "flowx,cell 3 6,alignx center");
+		add(BTEntrar, "flowx,cell 8 7 1 2,grow");
 
 		LNao = new JLabel("Não possui uma conta?");
-		LNao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		add(LNao, "cell 3 7,alignx center");
+		LNao.setFont(new Font("Tahoma", Font.BOLD, 15));
+		add(LNao, "cell 8 10,alignx center");
 	}
 
 	public String getUsuario() {
