@@ -77,18 +77,12 @@ public class ProdutoController extends ComponentAdapter {
 			} catch (PersistenciaException ex) {
 				this.view.exibirMensagem("Erro Crítico", "Erro ao excluir o produto: " + ex.getMessage(), 0);
 			}
-		});
-
-		// Adicione dentro do construtor ProdutoController, junto das outras ações
-		// (this.view.cadastroproduto, etc.)
-
-		// 1. Ação para preencher os campos ao clicar em uma linha da tabela
+		}); 
 		this.view.getTabelaProdutos().addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				int linhaSelecionada = view.getTabelaProdutos().getSelectedRow();
 				if (linhaSelecionada != -1) {
-					// Pega os dados das colunas 1, 2 e 3 para preencher na tela
 					view.setNome(view.getModeloTabela().getValueAt(linhaSelecionada, 1).toString());
 					view.setPreco(view.getModeloTabela().getValueAt(linhaSelecionada, 2).toString());
 					view.setQtd(view.getModeloTabela().getValueAt(linhaSelecionada, 3).toString());
