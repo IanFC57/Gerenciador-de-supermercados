@@ -128,7 +128,7 @@ public class CompraController extends ComponentAdapter {
 					.append(String.format("%.2f", valor)).append("\n");
 		}
 
-		nota.append("\n=============================================\n");
+		
 		nota.append("Total Pago: R$ ").append(String.format("%.2f", valorTotal));
 
 		view.exibirMensagem("Compra Finalizada!", nota.toString(), 1);

@@ -67,4 +67,20 @@ public class ProdutoDAO {
 			throw new PersistenciaException("Erro ao excluir o produto selecionado.", e);
 		}
 	}
+
+	// Adicione este método dentro da classe ProdutoDAO
+	public void atualizarProduto(Produto produto) {
+		String sql = "UPDATE produto SET nome_produto = ?, qtd = ?, preco = ? WHERE id_produto = ?";
+		try (Connection conexao = BancoDeDados.conectar(); PreparedStatement pstm = conexao.prepareStatement(sql)) {
+
+			pstm.setString(1, produto.getNomeProduto());
+			pstm.setInt(2, produto.getQtd());
+			pstm.setDouble(3, produto.getPrecoUnitario());
+			pstm.setInt(4, produto.getId());
+			pstm.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new PersistenciaException("Erro ao atualizar o produto na base de dados.", e);
+		}
+	}
 }

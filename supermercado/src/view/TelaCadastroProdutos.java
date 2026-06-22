@@ -34,33 +34,33 @@ public class TelaCadastroProdutos extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("Cadastrar Produtos");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 25));
 		add(lblNewLabel_1, "cell 2 0 2 1,alignx center");
-						
-								JLabel lblNome = new JLabel("Nome do Produto:");
-								lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
-								add(lblNome, "cell 2 2,alignx left");
-						
-								TFProdutos = new JTextField();
-								TFProdutos.setFont(new Font("Tahoma", Font.PLAIN, 18));
-								add(TFProdutos, "cell 3 2,growx");
-								TFProdutos.setColumns(10);
-				
-						JLabel Qtd = new JLabel("Qtd:");
-						Qtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
-						add(Qtd, "cell 2 3,alignx right");
-				
-						TFQtd = new JTextField();
-						TFQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
-						add(TFQtd, "cell 3 3,growx");
-						TFQtd.setColumns(10);
-		
-				JLabel lblPreco = new JLabel("Preço");
-				lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				add(lblPreco, "cell 2 4,alignx right");
-		
-				TFPreco = new JTextField();
-				TFPreco.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				TFPreco.setColumns(10);
-				add(TFPreco, "cell 3 4,growx");
+
+		JLabel lblNome = new JLabel("Nome do Produto:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(lblNome, "cell 2 2,alignx left");
+
+		TFProdutos = new JTextField();
+		TFProdutos.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(TFProdutos, "cell 3 2,growx");
+		TFProdutos.setColumns(10);
+
+		JLabel Qtd = new JLabel("Qtd:");
+		Qtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(Qtd, "cell 2 3,alignx right");
+
+		TFQtd = new JTextField();
+		TFQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(TFQtd, "cell 3 3,growx");
+		TFQtd.setColumns(10);
+
+		JLabel lblPreco = new JLabel("Preço");
+		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(lblPreco, "cell 2 4,alignx right");
+
+		TFPreco = new JTextField();
+		TFPreco.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		TFPreco.setColumns(10);
+		add(TFPreco, "cell 3 4,growx");
 
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, "cell 1 5 4 2,grow");
@@ -76,7 +76,7 @@ public class TelaCadastroProdutos extends JPanel {
 
 		table = new JTable(modeloTabela);
 		scrollPane.setViewportView(table);
-		
+
 		bTEditar = new JButton("Editar");
 		bTEditar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		add(bTEditar, "flowx,cell 3 7");
@@ -142,5 +142,21 @@ public class TelaCadastroProdutos extends JPanel {
 
 	public void exibirMensagem(String titulo, String mensagem, int tipoMensagem) {
 		javax.swing.JOptionPane.showMessageDialog(null, mensagem, titulo, tipoMensagem);
+	}
+
+	public void acaoEditar(ActionListener actionListener) {
+		this.bTEditar.addActionListener(actionListener);
+	}
+
+	public void setNome(String nome) {
+		this.TFProdutos.setText(nome);
+	}
+
+	public void setQtd(String qtd) {
+		this.TFQtd.setText(qtd);
+	}
+
+	public void setPreco(String preco) {
+		this.TFPreco.setText(preco);
 	}
 }

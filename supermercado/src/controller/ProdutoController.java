@@ -79,6 +79,70 @@ public class ProdutoController extends ComponentAdapter {
 			}
 		});
 
+		// Adicione dentro do construtor ProdutoController, junto das outras ações
+		// (this.view.cadastroproduto, etc.)
+
+		// 1. Ação para preencher os campos ao clicar em uma linha da tabela
+		this.view.getTabelaProdutos().addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				int linhaSelecionada = view.getTabelaProdutos().getSelectedRow();
+				if (linhaSelecionada != -1) {
+					// Pega os dados das colunas 1, 2 e 3 para preencher na tela
+					view.setNome(view.getModeloTabela().getValueAt(linhaSelecionada, 1).toString());
+					view.setPreco(view.getModeloTabela().getValueAt(linhaSelecionada, 2).toString());
+					view.setQtd(view.getModeloTabela().getValueAt(linhaSelecionada, 3).toString());
+				}
+			}
+		});
+
+		this.view.acaoEditar(e -> {
+			try {
+				int linhaSelecionada = this.view.getTabelaProdutos().getSelectedRow();
+
+				if (linhaSelecionada == -1) {
+					throw new ValidacaoException("Selecione um produto na tabela para poder editá-lo.");
+				}
+
+				int idProduto = (int) this.view.getModeloTabela().getValueAt(linhaSelecionada, 0);
+				String nome = view.getNome();
+				String qtdStr = view.getQtd();
+				String precoStr = view.getPreco();
+
+				if (nome == null || nome.trim().isEmpty() || qtdStr == null || qtdStr.trim().isEmpty()
+						|| precoStr == null || precoStr.trim().isEmpty()) {
+					throw new ValidacaoException(
+							"Todos os campos de produto são de preenchimento obrigatório para edição.");
+				}
+
+				if (nome.matches(".*\\d.*")) {
+					throw new ValidacaoException("O nome do produto não pode conter números.");
+				}
+
+				int qtd = Integer.parseInt(qtdStr.trim());
+				double preco = Double.parseDouble(precoStr.replace(",", ".").trim());
+
+				if (qtd < 0 || preco < 0) {
+					throw new ValidacaoException("Não pode inserir valores negativos de quantidade ou preço.");
+				}
+
+				Produto p = new Produto(idProduto, nome.trim(), preco, qtd);
+				this.model.atualizarProduto(p);
+
+				this.view.limparCampos();
+				this.view.exibirMensagem("Sucesso", "Produto atualizado com sucesso!", 1);
+				this.view.getTabelaProdutos().clearSelection();
+				carregarTabela();
+
+			} catch (NumberFormatException ex) {
+				this.view.exibirMensagem("Erro de Formato", "Quantidade ou preço inválido. Use apenas números.", 0);
+			} catch (ValidacaoException ex) {
+				this.view.exibirMensagem("Aviso", ex.getMessage(), 2);
+			} catch (PersistenciaException ex) {
+				this.view.exibirMensagem("Erro Crítico", "Erro ao atualizar o produto: " + ex.getMessage(), 0);
+			}
+		});
+
 		this.view.acaoSair(e -> {
 			this.view.limparCampos();
 			this.view.limparTabela();
