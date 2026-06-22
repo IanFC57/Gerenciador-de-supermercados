@@ -28,25 +28,22 @@ public class TelaCadastro extends JPanel {
 	public TelaCadastro() {
 		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
-		setLayout(new MigLayout("", "[grow 10][][grow][grow 10]", "[grow 2][][][][][grow 2][]"));
+		setLayout(new MigLayout("", "[grow 50][][grow 10][grow 50]", "[grow 2][][][][][grow 2][]"));
 
 		JLabel lblNewLabel_1 = new JLabel("Cadastre-se");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 25));
 		add(lblNewLabel_1, "cell 2 0,alignx center");
-
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblNome, "cell 1 2,alignx left");
-
-		TFUsuario = new JTextField();
-		add(TFUsuario, "cell 2 2,growx");
-		TFUsuario.setColumns(10);
-
-		JLabel lblCPF = new JLabel("CPF:");
-		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblCPF, "cell 1 3,alignx trailing");
+		
+				JLabel lblNome = new JLabel("Nome:");
+				lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				add(lblNome, "cell 1 1,alignx right");
+		
+				TFUsuario = new JTextField();
+				add(TFUsuario, "cell 2 1,growx");
+				TFUsuario.setColumns(10);
 
 		this.BTCadastrar = new JButton("Cadastrar");
+		BTCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		try {
 			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
@@ -55,24 +52,32 @@ public class TelaCadastro extends JPanel {
 		} catch (ParseException e) {
 			TFCPF = new JFormattedTextField();
 		}
-		add(TFCPF, "cell 2 3,growx");
+		
+				JLabel lblCPF = new JLabel("CPF:");
+				lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				add(lblCPF, "cell 1 2,alignx right");
+		add(TFCPF, "cell 2 2,growx");
 		TFCPF.setColumns(10);
-
-		JLabel lblNewLabel = new JLabel("Será um administrador?");
-		add(lblNewLabel, "flowx,cell 2 5,alignx left,aligny center");
+		
+				JLabel lblNewLabel = new JLabel("Será um administrador?");
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				add(lblNewLabel, "flowx,cell 2 4,alignx left,aligny center");
 		add(BTCadastrar, "flowx,cell 2 6,alignx center");
-
-		RBSim = new JRadioButton("Sim");
-		add(RBSim, "cell 2 5,aligny center");
-
-		RBNao = new JRadioButton("Não");
-		add(RBNao, "cell 2 5,aligny center");
 		b = new ButtonGroup();
-		b.add(RBSim);
-		b.add(RBNao);
 
 		btnSair = new JButton("Sair");
+		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		add(btnSair, "cell 2 6");
+								
+										RBSim = new JRadioButton("Sim");
+										RBSim.setFont(new Font("Tahoma", Font.PLAIN, 17));
+										add(RBSim, "cell 2 4,aligny center");
+										b.add(RBSim);
+										
+												RBNao = new JRadioButton("Não");
+												RBNao.setFont(new Font("Tahoma", Font.PLAIN, 17));
+												add(RBNao, "cell 2 4,aligny center");
+												b.add(RBNao);
 	}
 
 	public void cadastrar(ActionListener actionListener) {

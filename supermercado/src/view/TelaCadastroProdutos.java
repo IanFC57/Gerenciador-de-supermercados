@@ -24,42 +24,46 @@ public class TelaCadastroProdutos extends JPanel {
 	private JButton BTCadastrar, btnExcluir, btnSair;
 	private JTable table;
 	private DefaultTableModel modeloTabela;
+	private JButton bTEditar;
 
 	public TelaCadastroProdutos() {
 		setPreferredSize(new Dimension(750, 800));
 		setBackground(SystemColor.inactiveCaptionBorder);
-		setLayout(new MigLayout("", "[grow 10][][][grow 10]", "[][][][][][grow][]"));
+		setLayout(new MigLayout("", "[grow 50][grow 10][][][grow 10][grow 50]", "[][][][][][grow][][]"));
 
 		JLabel lblNewLabel_1 = new JLabel("Cadastrar Produtos");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		add(lblNewLabel_1, "cell 2 0,alignx center");
-
-		JLabel lblNome = new JLabel("Nome do Produto:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblNome, "cell 1 1,alignx left");
-
-		TFProdutos = new JTextField();
-		add(TFProdutos, "cell 2 1,growx");
-		TFProdutos.setColumns(10);
-
-		JLabel Qtd = new JLabel("Qtd:");
-		Qtd.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(Qtd, "cell 1 3,alignx left");
-
-		TFQtd = new JTextField();
-		add(TFQtd, "cell 2 3,growx");
-		TFQtd.setColumns(10);
-
-		JLabel lblPreco = new JLabel("Preço");
-		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblPreco, "cell 1 4,alignx left");
-
-		TFPreco = new JTextField();
-		TFPreco.setColumns(10);
-		add(TFPreco, "cell 2 4,growx");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 25));
+		add(lblNewLabel_1, "cell 2 0 2 1,alignx center");
+						
+								JLabel lblNome = new JLabel("Nome do Produto:");
+								lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
+								add(lblNome, "cell 2 2,alignx left");
+						
+								TFProdutos = new JTextField();
+								TFProdutos.setFont(new Font("Tahoma", Font.PLAIN, 18));
+								add(TFProdutos, "cell 3 2,growx");
+								TFProdutos.setColumns(10);
+				
+						JLabel Qtd = new JLabel("Qtd:");
+						Qtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						add(Qtd, "cell 2 3,alignx right");
+				
+						TFQtd = new JTextField();
+						TFQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						add(TFQtd, "cell 3 3,growx");
+						TFQtd.setColumns(10);
+		
+				JLabel lblPreco = new JLabel("Preço");
+				lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				add(lblPreco, "cell 2 4,alignx right");
+		
+				TFPreco = new JTextField();
+				TFPreco.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				TFPreco.setColumns(10);
+				add(TFPreco, "cell 3 4,growx");
 
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 2 5,grow");
+		add(scrollPane, "cell 1 5 4 2,grow");
 
 		modeloTabela = new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Produto", "Preço", "Qtd" }) {
 
@@ -72,15 +76,22 @@ public class TelaCadastroProdutos extends JPanel {
 
 		table = new JTable(modeloTabela);
 		scrollPane.setViewportView(table);
+		
+		bTEditar = new JButton("Editar");
+		bTEditar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(bTEditar, "flowx,cell 3 7");
 
 		BTCadastrar = new JButton("Cadastrar");
-		add(BTCadastrar, "flowx,cell 2 6,alignx center");
+		BTCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(BTCadastrar, "cell 3 7,alignx center");
 
 		btnExcluir = new JButton("Excluir");
-		add(btnExcluir, "cell 2 6");
+		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(btnExcluir, "cell 3 7");
 
 		btnSair = new JButton("Sair");
-		add(btnSair, "cell 2 6");
+		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(btnSair, "cell 3 7");
 	}
 
 	public void cadastroproduto(ActionListener actionListener) {

@@ -29,18 +29,18 @@ public class TelaProdutos extends JPanel {
 
 	public TelaProdutos() {
 		setPreferredSize(new Dimension(750, 800));
-		setLayout(new MigLayout("", "[][grow][]", "[][][grow 10][][][grow][grow 10]"));
+		setLayout(new MigLayout("", "[][grow 50][grow 50][][grow 10]", "[][][grow 10][][][grow][grow 10]"));
 
 		JLabel lblNewLabel = new JLabel("Produtos");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		add(lblNewLabel, "cell 0 1");
-
-		JLabel lblNewLabel_1 = new JLabel("Carrinho de compras");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		add(lblNewLabel_1, "cell 1 1");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		add(lblNewLabel, "cell 0 1,alignx center");
+		
+				JLabel lblNewLabel_1 = new JLabel("Carrinho de compras");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+				add(lblNewLabel_1, "cell 3 1,alignx center");
 
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 2,grow");
+		add(scrollPane, "cell 0 2 2 3,grow");
 
 		modeloProdutos = new DefaultTableModel(new Object[][] {},
 				new String[] { "ID", "Produto", "Preço", "Estoque" }) {
@@ -55,43 +55,51 @@ public class TelaProdutos extends JPanel {
 		tabelaProdutos.setRowSelectionAllowed(true);
 		scrollPane.setViewportView(tabelaProdutos);
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		add(scrollPane_1, "cell 1 2,grow");
-
 		modeloCarrinho = new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Produto", "Qtd", "Subtotal" }) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-
-		tabelaCarrinho = new JTable(modeloCarrinho);
-		scrollPane_1.setViewportView(tabelaCarrinho);
-
-		JLabel lblQtd = new JLabel("Qtd:");
-		add(lblQtd, "flowx,cell 0 4");
-
-		spinnerQtd = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		add(spinnerQtd, "cell 0 4");
-
-		btnAdicionar = new JButton("Adicionar");
-		add(btnAdicionar, "cell 0 4");
-
-		btnExcluir = new JButton("Excluir");
-		add(btnExcluir, "cell 0 4");
-
-		JLabel lblNewLabel_2 = new JLabel("Total: R$");
-		add(lblNewLabel_2, "flowx,cell 1 4,alignx right");
-
-		TFTotal = new JTextField();
-		TFTotal.setEditable(false);
-		add(TFTotal, "cell 1 4,alignx right");
-		TFTotal.setColumns(10);
-
-		btnEmitirNota = new JButton("Emitir nota fiscal");
-		add(btnEmitirNota, "cell 0 4");
-
-		btnDeslogar = new JButton("Sair");
-		add(btnDeslogar, "cell 0 4");
+		
+				JScrollPane scrollPane_1 = new JScrollPane();
+				add(scrollPane_1, "cell 2 2 3 3,grow");
+				
+						tabelaCarrinho = new JTable(modeloCarrinho);
+						scrollPane_1.setViewportView(tabelaCarrinho);
+				
+						JLabel lblQtd = new JLabel("Qtd:");
+						lblQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						add(lblQtd, "flowx,cell 0 6");
+						
+								spinnerQtd = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+								spinnerQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+								add(spinnerQtd, "cell 0 6");
+								
+										btnAdicionar = new JButton("Adicionar");
+										btnAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+										add(btnAdicionar, "cell 0 6");
+										
+												btnExcluir = new JButton("Excluir");
+												btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
+												add(btnExcluir, "cell 0 6");
+												
+														btnEmitirNota = new JButton("Emitir nota fiscal");
+														btnEmitirNota.setFont(new Font("Tahoma", Font.PLAIN, 18));
+														add(btnEmitirNota, "cell 0 6");
+														
+																btnDeslogar = new JButton("Sair");
+																btnDeslogar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+																add(btnDeslogar, "cell 0 6");
+																
+																		JLabel lblNewLabel_2 = new JLabel("Total: R$");
+																		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+																		add(lblNewLabel_2, "flowx,cell 3 6,alignx right");
+																				
+																						TFTotal = new JTextField();
+																						TFTotal.setFont(new Font("Tahoma", Font.PLAIN, 17));
+																						TFTotal.setEditable(false);
+																						add(TFTotal, "cell 3 6,alignx right");
+																						TFTotal.setColumns(10);
 	}
 
 	public void adicionarOuvinte(ComponentListener listener) {

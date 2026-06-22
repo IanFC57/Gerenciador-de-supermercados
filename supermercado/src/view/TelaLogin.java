@@ -40,7 +40,7 @@ public class TelaLogin extends JPanel {
 		}
 
 		JLabel lblNewLabel = new JLabel("Seja Bem Vindo");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
 		add(lblNewLabel, "cell 8 1,alignx center,aligny center");
 
 		JLabel lblNome = new JLabel("Nome:");
@@ -63,7 +63,7 @@ public class TelaLogin extends JPanel {
 
 		BTEntrar = new JButton("Entrar");
 		BTEntrar.setBackground(new Color(255, 255, 255));
-		BTEntrar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		BTEntrar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		BTEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -71,7 +71,7 @@ public class TelaLogin extends JPanel {
 		add(BTEntrar, "flowx,cell 8 7 1 2,grow");
 
 		LNao = new JLabel("Não possui uma conta?");
-		LNao.setFont(new Font("Tahoma", Font.BOLD, 15));
+		LNao.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(LNao, "cell 8 10,alignx center");
 	}
 
